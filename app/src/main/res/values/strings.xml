@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Lost Pet</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="auth">Вход</string>
+    <string name="registration">Регистрация</string>
+    <string name="login">Логин</string>
+    <string name="password">Пароль</string>
+    <string name="password_repeat">Подтвердите пароль</string>
 </resources>
