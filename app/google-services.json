@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "1057549668827",
+    "project_id": "courseinter-1418f",
+    "storage_bucket": "courseinter-1418f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1057549668827:android:e17d412059bed405cad7fe",
+        "android_client_info": {
+          "package_name": "com.example.lostpet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1057549668827-fjq61m8aa2ibsb6mqgjt0uefsbqsjcq1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrH6EiwWs8l7bCO8qsBe1MlPY462QqjGQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1057549668827-fjq61m8aa2ibsb6mqgjt0uefsbqsjcq1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1057549668827:android:e1d61e94a9c4c655cad7fe",
+        "android_client_info": {
+          "package_name": "com.example.shoppinglist"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1057549668827-fjq61m8aa2ibsb6mqgjt0uefsbqsjcq1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrH6EiwWs8l7bCO8qsBe1MlPY462QqjGQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1057549668827-fjq61m8aa2ibsb6mqgjt0uefsbqsjcq1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
