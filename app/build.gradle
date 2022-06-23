@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'com.google.gms.google-services'
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 
 android {
@@ -36,6 +37,10 @@ android {
 }
 
 dependencies {
+
+    // Google map
+    implementation 'com.google.android.gms:play-services-maps:18.0.2'
+
 
     // Navigation Component
     def nav_version = "2.4.2"
