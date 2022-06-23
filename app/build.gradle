@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'com.google.gms.google-services'
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -38,9 +39,17 @@ android {
 
 dependencies {
 
+    // Retrofit
+    def retrofit_version = "2.9.0"
+
+    implementation ("com.squareup.retrofit2:retrofit:$retrofit_version")
+    implementation ("com.google.code.gson:gson:$retrofit_version")
+    implementation ("com.squareup.retrofit2:converter-gson:$retrofit_version")
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
+
+
     // Google map
     implementation 'com.google.android.gms:play-services-maps:18.0.2'
-
 
     // Navigation Component
     def nav_version = "2.4.2"
