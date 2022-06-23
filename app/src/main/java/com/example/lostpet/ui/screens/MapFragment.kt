@@ -23,7 +23,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
 
-class MapsFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
+class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
     GoogleMap.OnMyLocationClickListener, OnMapReadyCallback,
     ActivityCompat.OnRequestPermissionsResultCallback {
 
@@ -40,10 +40,10 @@ class MapsFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
          * install it inside the SupportMapFragment. This method will only be triggered once the
          * user has installed Google Play services and returned to the app.
          */
-        val sydney = LatLng(-34.0, 151.0)
+        // val sydney = LatLng(-34.0, 151.0)
         map = googleMap
-        googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+       //  googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
+      //  googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
         googleMap.setOnMyLocationButtonClickListener(this)
         googleMap.setOnMyLocationClickListener(this)
         enableMyLocation()

@@ -9,4 +9,4 @@
     map:uiZoomControls="true"
     map:uiRotateGestures="true"
     map:cameraTilt="30"
-    tools:context=".ui.screens.MapsFragment" />
+    tools:context=".ui.screens.MapFragment" />
