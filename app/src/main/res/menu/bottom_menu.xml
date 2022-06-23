@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/accountFragment" android:icon="@drawable/account"
+        android:title="@string/my_account"/>
+    <item android:id="@+id/mapFragment" android:icon="@drawable/map"
+        android:title="@string/map"/>
+    <item android:id="@+id/listOfMarksFragment" android:icon="@drawable/list"
+        android:title="@string/marks"/>
+</menu>
