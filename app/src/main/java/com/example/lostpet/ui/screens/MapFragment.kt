@@ -2,6 +2,7 @@ package com.example.lostpet.ui.screens
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
 import androidx.fragment.app.Fragment
@@ -13,22 +14,43 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import com.example.lostpet.R
+import com.example.lostpet.ui.viewmodels.MapViewModel
+import com.example.lostpet.ui.viewmodels.ViewModelFactory
 import com.example.lostpet.utils.PermissionUtils
 import com.example.lostpet.utils.PermissionUtils.PermissionDeniedDialog.Companion.newInstance
 import com.example.lostpet.utils.PermissionUtils.isPermissionGranted
+import com.example.lostpet.utils.appComponent
 import com.google.android.gms.maps.*
 
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import javax.inject.Inject
 
 
 class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
     GoogleMap.OnMyLocationClickListener, OnMapReadyCallback,
     ActivityCompat.OnRequestPermissionsResultCallback {
 
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    private val viewModel by viewModels<MapViewModel> { viewModelFactory }
+//   private val viewModel by viewModels<MapViewModel> {
+//       ViewModelProvider(requireActivity(), viewModelFactory)[MapViewModel::class.java]
+//   }
+
+
+
     private lateinit var map: GoogleMap
     private var permissionDenied = false
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        requireContext().appComponent.inject(this)
+    }
 
     private val callback = OnMapReadyCallback { googleMap ->
         /**
@@ -40,9 +62,15 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
          * install it inside the SupportMapFragment. This method will only be triggered once the
          * user has installed Google Play services and returned to the app.
          */
-        // val sydney = LatLng(-34.0, 151.0)
+        val sydney = LatLng(-34.0, 151.0)
         map = googleMap
-       //  googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
+        map.uiSettings.isMapToolbarEnabled = false
+       googleMap.addMarker(
+           MarkerOptions()
+               .position(sydney)
+               .title("Marker in Sydney")
+               .draggable(true)
+       )
       //  googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
         googleMap.setOnMyLocationButtonClickListener(this)
         googleMap.setOnMyLocationClickListener(this)
@@ -61,13 +89,12 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
+
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
-//        googleMap.setOnMyLocationButtonClickListener(this)
-//        googleMap.setOnMyLocationClickListener(this)
-//        enableMyLocation()
+
     }
 
     /**
