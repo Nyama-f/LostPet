@@ -5,18 +5,18 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
-import androidx.fragment.app.Fragment
-
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import com.example.lostpet.R
+import com.example.lostpet.databinding.FragmentMapsBinding
 import com.example.lostpet.ui.viewmodels.MapViewModel
 import com.example.lostpet.ui.viewmodels.ViewModelFactory
 import com.example.lostpet.utils.PermissionUtils
@@ -24,7 +24,6 @@ import com.example.lostpet.utils.PermissionUtils.PermissionDeniedDialog.Companio
 import com.example.lostpet.utils.PermissionUtils.isPermissionGranted
 import com.example.lostpet.utils.appComponent
 import com.google.android.gms.maps.*
-
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import javax.inject.Inject
@@ -33,6 +32,10 @@ import javax.inject.Inject
 class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
     GoogleMap.OnMyLocationClickListener, OnMapReadyCallback,
     ActivityCompat.OnRequestPermissionsResultCallback {
+
+    private var _binding: FragmentMapsBinding? = null
+    private val binding get() = checkNotNull(_binding) { "Binding is null" }
+
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -43,7 +46,8 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
 //   }
 
 
-
+    private var isCheckedFABOnMap = false
+    private var isCounterFABOnMap = 0
     private lateinit var map: GoogleMap
     private var permissionDenied = false
 
@@ -75,6 +79,8 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
         googleMap.setOnMyLocationButtonClickListener(this)
         googleMap.setOnMyLocationClickListener(this)
         enableMyLocation()
+
+        addMarker(map)
     }
 
     override fun onCreateView(
@@ -82,7 +88,9 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_maps, container, false)
+        _binding = FragmentMapsBinding.inflate(inflater, container, false)
+        val view = binding.root
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -90,11 +98,37 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
 
+        val fab = binding.fabAdd
+        fab.setOnClickListener {
+            isCheckedFABOnMap = !isCheckedFABOnMap
+            isCounterFABOnMap++
+            }
+
+        }
+
+    // Добавление маркера
+    private fun addMarker(mMap: GoogleMap){
+         mMap.setOnMapClickListener(object: GoogleMap.OnMapClickListener {
+            override fun onMapClick(latLng: LatLng) {
+                Log.d("View", "$isCheckedFABOnMap")
+                if(isCheckedFABOnMap){
+                    val myPos = latLng
+                    mMap.animateCamera(CameraUpdateFactory.newLatLng(myPos))
+                    // val secPos = myPos
+                    mMap.addMarker(
+                        MarkerOptions()
+                            .position(myPos)
+                            .draggable(true))
+                    isCheckedFABOnMap = false
+                }
+
+            }
+        })
     }
+
 
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
-
     }
 
     /**
