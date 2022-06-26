@@ -6,5 +6,7 @@ data class Pet(
     val petType: String,
     val petColor: String,
     val petDescription: String,
-    val petCoordinate: String
+    val petLatitude: String,
+    val petLongitude: String,
+    val petUserId: Int
 )

@@ -39,6 +39,10 @@ android {
 
 dependencies {
 
+    // Fragment
+    implementation 'androidx.fragment:fragment:1.4.1'
+
+
     //Dagger2
     def dagger2_version = "2.38.1"
 
