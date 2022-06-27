@@ -17,6 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" >
 
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -25,19 +26,38 @@
             android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="64sp"
-            android:layout_marginBottom="150dp"/>
+            android:layout_marginBottom="120dp"/>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/editText_login"
+            android:id="@+id/editTextName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/login"
+            android:hint="@string/addName"
+            app:startIconDrawable="@drawable/enjoy_people">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/innerEditTextName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/editTextLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/addLogin"
+            android:layout_marginTop="16dp"
             app:startIconDrawable="@drawable/login">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/innerEditTextLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
+                android:inputType="text"
                 />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -46,12 +66,13 @@
             android:id="@+id/editTextPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/password"
+            android:hint="@string/addPassword"
             app:endIconMode="password_toggle"
             app:startIconDrawable="@drawable/password"
             android:layout_marginTop="16dp">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/innerEditTextPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
@@ -69,6 +90,7 @@
             android:layout_marginTop="16dp">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/innerEditTextPasswordRepeat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
@@ -78,10 +100,10 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_registration"
-            android:layout_width="250dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/auth"
-            android:layout_marginTop="100dp"/>
+            android:layout_marginTop="10dp"/>
 
     </LinearLayout>
 
