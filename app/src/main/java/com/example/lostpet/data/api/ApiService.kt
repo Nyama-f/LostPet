@@ -9,20 +9,20 @@ import retrofit2.http.Path
 
 interface ApiService {
 
-    @GET("users")
+    @GET("user")
     suspend fun getUsers(): List<User>
 
-    @GET("users/{id}")
+    @GET("user/{id}")
     suspend fun getUser(@Path("id") userId: Int): User
 
     @POST("user")
     suspend fun addUser(@Body user: User)
 
 
-    @GET("pets")
+    @GET("pet")
     suspend fun getPets(): List<Pet>
 
-    @GET("pets/{id}")
+    @GET("pet/{id}")
     suspend fun getPet(@Path("id") petId: Int): Pet
 
     @POST("pet")

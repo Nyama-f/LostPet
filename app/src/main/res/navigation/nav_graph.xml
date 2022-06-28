@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mapFragment">
+    app:startDestination="@id/registrationFragment">
 
     <fragment
         android:id="@+id/loginOrAuthFragment"
@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_authFragment_to_loginOrAuthFragment"
             app:destination="@id/loginOrAuthFragment" />
+        <action
+            android:id="@+id/action_authFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
     </fragment>
     <fragment
         android:id="@+id/registrationFragment"
@@ -34,20 +37,44 @@
         <action
             android:id="@+id/action_registrationFragment_to_loginOrAuthFragment"
             app:destination="@id/loginOrAuthFragment" />
+        <action
+            android:id="@+id/action_registrationFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
     </fragment>
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.example.lostpet.ui.screens.MapFragment"
         android:label="fragment_maps"
-        tools:layout="@layout/fragment_maps" />
+        tools:layout="@layout/fragment_maps" >
+        <action
+            android:id="@+id/action_mapFragment_to_accountFragment"
+            app:destination="@id/accountFragment" />
+        <action
+            android:id="@+id/action_mapFragment_to_listOfMarksFragment"
+            app:destination="@id/listOfMarksFragment" />
+    </fragment>
     <fragment
         android:id="@+id/accountFragment"
         android:name="com.example.lostpet.ui.screens.AccountFragment"
         android:label="fragment_account"
-        tools:layout="@layout/fragment_account" />
+        tools:layout="@layout/fragment_account" >
+        <action
+            android:id="@+id/action_accountFragment_to_listOfMarksFragment"
+            app:destination="@id/listOfMarksFragment" />
+        <action
+            android:id="@+id/action_accountFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
+    </fragment>
     <fragment
         android:id="@+id/listOfMarksFragment"
         android:name="com.example.lostpet.ui.screens.ListOfMarksFragment"
         android:label="fragment_list_of_marks"
-        tools:layout="@layout/fragment_list_of_marks" />
+        tools:layout="@layout/fragment_list_of_marks" >
+        <action
+            android:id="@+id/action_listOfMarksFragment_to_accountFragment"
+            app:destination="@id/accountFragment" />
+        <action
+            android:id="@+id/action_listOfMarksFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
+    </fragment>
 </navigation>

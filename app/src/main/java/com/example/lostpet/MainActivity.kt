@@ -7,6 +7,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.lostpet.databinding.ActivityMainBinding
+import com.example.lostpet.utils.Consts.MAIN
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,12 +20,17 @@ class MainActivity : AppCompatActivity() {
         navFragment.findNavController()
     }
 
+//     val navController by lazy {
+//        Navigation.findNavController(this, R.id.navContainer)
+//    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        navController
+        MAIN = this
 
         binding.bottomNav.setupWithNavController(navController)
         // binding.bottomNav.itemIconTintList = null
