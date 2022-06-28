@@ -10,7 +10,7 @@ interface ApiRepository {
 
     fun getUser(userId: Int): Flow<User>
 
-    fun addUser(user: User): Flow<Unit>
+    suspend fun addUser(user: User)
 
     fun getPets(): Flow<List<Pet>>
 

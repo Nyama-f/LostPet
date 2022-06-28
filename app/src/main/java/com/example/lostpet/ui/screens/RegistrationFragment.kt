@@ -1,22 +1,23 @@
 package com.example.lostpet.ui.screens
 
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.lostpet.R
 import com.example.lostpet.data.model.User
 import com.example.lostpet.databinding.FragmentRegistrationBinding
-import com.example.lostpet.ui.viewmodels.MapViewModel
 import com.example.lostpet.ui.viewmodels.RegistrationViewModel
 import com.example.lostpet.ui.viewmodels.ViewModelFactory
 import com.example.lostpet.utils.TextValidator
+import com.example.lostpet.utils.appComponent
 import javax.inject.Inject
-import kotlin.math.log
 
 
 class RegistrationFragment : Fragment() {
@@ -30,6 +31,10 @@ class RegistrationFragment : Fragment() {
     private val binding get() = checkNotNull(_binding) { "Binding is null" }
 
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        requireContext().appComponent.inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,14 +50,25 @@ class RegistrationFragment : Fragment() {
         checkLoginAndNameIsNull()
         checkPasswordsEditTextInputEachOther()
         binding.btnRegistration.setOnClickListener {
+//            val user = User(
+//                userName = binding.innerEditTextName.text.toString(),
+//                userAvatar = "123",
+//                userLogin = binding.innerEditTextLogin.text.toString(),
+//                userPassword = binding.innerEditTextPassword.text.toString(),
+//                userId = null,
+//                listOfMarks = mutableListOf())
             val user = User(
-                userName = binding.editTextName.toString(),
+                userName = "123",
                 userAvatar = "123",
-                userLogin = binding.editTextLogin.toString(),
-                userPassword = binding.editTextPassword.toString(),
-                listOfMarks = listOf())
+                userLogin = "123",
+                userPassword = "123",
+                userId = null,
+                //listOfMarks = mutableListOf()
+                )
 
-
+            viewModel.addUser(user = user)
+           // var users = viewModel.getUsers()
+           // Log.d("UserNyama1", "$users")
             findNavController().navigate(R.id.action_registrationFragment_to_mapFragment)
         }
     }

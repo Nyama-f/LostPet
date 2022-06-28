@@ -3,7 +3,6 @@ package com.example.lostpet.ui.viewmodels
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.lostpet.data.model.Pet
 import com.example.lostpet.data.model.User
 import com.example.lostpet.domain.useCases.AddUserUseCase
 import com.example.lostpet.domain.useCases.GetUsersUseCase
@@ -12,7 +11,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
+import java.util.Objects.toString
 import javax.inject.Inject
+import kotlin.Unit.toString
 
 class RegistrationViewModel @Inject constructor(
     private val addUserUseCase: AddUserUseCase,
@@ -29,6 +30,7 @@ class RegistrationViewModel @Inject constructor(
     fun addUser(user: User){
         viewModelScope.launch(exceptionHandler){
             addUserUseCase(user)
+            Log.d("UserNyama1","${user.toString()}")
         }
     }
 
@@ -37,6 +39,7 @@ class RegistrationViewModel @Inject constructor(
             getUsersUseCase.invoke()
                 .filterNotNull()
                 .collect{
+                    Log.d("UserNyama1", "$it")
                     _users.emit(it)
                 }
         }

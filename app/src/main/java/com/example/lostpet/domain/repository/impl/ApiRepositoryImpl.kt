@@ -1,5 +1,6 @@
 package com.example.lostpet.domain.repository.impl
 
+import android.util.Log
 import com.example.lostpet.data.api.ApiService
 import com.example.lostpet.data.model.Pet
 import com.example.lostpet.data.model.User
@@ -21,7 +22,8 @@ class ApiRepositoryImpl @Inject constructor(
         emit(api)
     }
 
-    override fun addUser(user: User): Flow<Unit> = flow {
+    override suspend fun addUser(user: User){
+        Log.d("UserNyama2", "_")
         apiService.addUser(user = user)
     }
 
