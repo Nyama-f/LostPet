@@ -8,6 +8,8 @@ class PersistantStorage {
 
     private var context: Context? = null
 
+    var globalIdUser: Int = 0
+
     fun initContext(cntx: Context) {
         context = cntx
     }

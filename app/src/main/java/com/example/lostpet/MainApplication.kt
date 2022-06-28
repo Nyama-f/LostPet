@@ -10,6 +10,11 @@ import com.example.lostpet.utils.Consts.MAIN
 
 class MainApplication: Application() {
 
+//    private var _globalUserID: Int? = null
+//    val globalUserID: Int
+//        get() = checkNotNull(_globalUserID) { "globalUserId is null" }
+
+
 
     private var _appComponent: ApplicationComponent? = null
     val appComponent: ApplicationComponent
@@ -23,6 +28,9 @@ class MainApplication: Application() {
         _appComponent = DaggerApplicationComponent.builder()
             .appContext(this)
             .build()
+    }
+    companion object{
+        var globalUserId = 0
     }
 
 }
