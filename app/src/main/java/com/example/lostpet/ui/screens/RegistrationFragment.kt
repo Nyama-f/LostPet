@@ -10,11 +10,13 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.lostpet.MainApplication
 import com.example.lostpet.R
 import com.example.lostpet.data.model.User
 import com.example.lostpet.databinding.FragmentRegistrationBinding
 import com.example.lostpet.ui.viewmodels.RegistrationViewModel
 import com.example.lostpet.ui.viewmodels.ViewModelFactory
+import com.example.lostpet.utils.Consts.MAIN
 import com.example.lostpet.utils.TextValidator
 import com.example.lostpet.utils.appComponent
 import javax.inject.Inject
@@ -50,25 +52,18 @@ class RegistrationFragment : Fragment() {
         checkLoginAndNameIsNull()
         checkPasswordsEditTextInputEachOther()
         binding.btnRegistration.setOnClickListener {
-//            val user = User(
-//                userName = binding.innerEditTextName.text.toString(),
-//                userAvatar = "123",
-//                userLogin = binding.innerEditTextLogin.text.toString(),
-//                userPassword = binding.innerEditTextPassword.text.toString(),
-//                userId = null,
-//                listOfMarks = mutableListOf())
             val user = User(
-                userName = "123",
+                userName = binding.innerEditTextName.text.toString(),
                 userAvatar = "123",
-                userLogin = "123",
-                userPassword = "123",
+                userLogin = binding.innerEditTextLogin.text.toString(),
+                userPassword = binding.innerEditTextPassword.text.toString(),
                 userId = null,
-                //listOfMarks = mutableListOf()
-                )
-
+                listOfMarks = mutableListOf()
+            )
             viewModel.addUser(user = user)
            // var users = viewModel.getUsers()
            // Log.d("UserNyama1", "$users")
+            //TODO Сделать добавление аватара(можно по названию файла)
             findNavController().navigate(R.id.action_registrationFragment_to_mapFragment)
         }
     }

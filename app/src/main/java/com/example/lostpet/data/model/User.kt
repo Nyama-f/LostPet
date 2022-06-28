@@ -13,7 +13,7 @@ data class User(
     val userLogin: String,
     @SerializedName("password")
     val userPassword: String,
-//    @SerializedName("listOfMarks")
-//    val listOfMarks: MutableList<Pet>
+    @SerializedName("listOfMarks")
+    val listOfMarks: MutableList<Pet>
 )
 

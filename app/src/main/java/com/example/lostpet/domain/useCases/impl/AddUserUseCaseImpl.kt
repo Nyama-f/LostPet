@@ -18,6 +18,6 @@ class AddUserUseCaseImpl @Inject constructor(
             apiRepository.addUser(user = user)
         }
         //apiRepository.addUser(user = user).flowOn(Dispatchers.IO)
-        Log.d("UserNyama1", "_")
+        //Log.d("UserNyama1", "_")
     }
 }

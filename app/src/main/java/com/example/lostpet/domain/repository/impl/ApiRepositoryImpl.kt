@@ -23,7 +23,7 @@ class ApiRepositoryImpl @Inject constructor(
     }
 
     override suspend fun addUser(user: User){
-        Log.d("UserNyama2", "_")
+       // Log.d("UserNyama2", "_")
         apiService.addUser(user = user)
     }
 
