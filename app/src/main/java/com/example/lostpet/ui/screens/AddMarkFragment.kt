@@ -53,8 +53,6 @@ class AddMarkFragment : Fragment() {
                 petUserId = 1
             )
             viewModel.addPet(pet = pet, 1)
-            // var users = viewModel.getUsers()
-            // Log.d("UserNyama1", "$users")
             //TODO Сделать добавление аватара(можно по названию файла)
             findNavController().navigate(R.id.action_addMarkFragment_to_mapFragment)
         }

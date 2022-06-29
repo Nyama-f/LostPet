@@ -32,12 +32,12 @@ class RegistrationViewModel @Inject constructor(
     fun addUser(user: User){
         viewModelScope.launch(exceptionHandler){
             addUserUseCase(user)
-            Log.d("UserNyama1","${user}")
+           // Log.d("UserNyama1","${user}")
         }
         with(sharedPreferences) {
             initContext(cntx = MAIN)
             addProperty(name = "userId", value = (globalIdUser + 1).toString())
-            Log.d("UserNyama1","${getProperty("userId")}")
+           // Log.d("UserNyama1","${getProperty("userId")}")
         }
     }
 
@@ -46,7 +46,7 @@ class RegistrationViewModel @Inject constructor(
             getUsersUseCase.invoke()
                 .filterNotNull()
                 .collect{
-                    Log.d("UserNyama1", "$it")
+                   // Log.d("UserNyama1", "$it")
                     _users.emit(it)
                 }
         }

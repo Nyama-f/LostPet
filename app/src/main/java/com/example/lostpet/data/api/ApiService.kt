@@ -23,7 +23,7 @@ interface ApiService {
 
 
     @GET("user/{id}/mark")
-    suspend fun getPets(): List<Pet>
+    suspend fun getPets(@Path("id") userId: Int): List<Pet>
 
     @GET("mark/{id}")
     suspend fun getPet(@Path("id") petId: Int): Pet

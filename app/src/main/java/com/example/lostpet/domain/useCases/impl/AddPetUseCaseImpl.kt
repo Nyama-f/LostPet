@@ -16,8 +16,6 @@ class AddPetUseCaseImpl @Inject constructor(
     override suspend  fun invoke(pet: Pet, userId: Int) {
         withContext(Dispatchers.IO){
             apiRepository.addPet(pet = pet, userId = userId)
-            Log.d("UserNyama1", "AddPetUseCaseImpl")
-
         }
        // apiRepository.addPet(pet = pet).flowOn(Dispatchers.IO)
     }

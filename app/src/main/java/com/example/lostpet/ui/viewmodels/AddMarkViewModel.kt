@@ -21,7 +21,6 @@ class AddMarkViewModel @Inject constructor(
     fun addPet(pet: Pet, userId: Int){
         viewModelScope.launch(exceptionHandler) {
             addPetUseCase(pet, userId = userId)
-            Log.d("UserNyama1", "AddMarkViewModel")
         }
     }
 }
