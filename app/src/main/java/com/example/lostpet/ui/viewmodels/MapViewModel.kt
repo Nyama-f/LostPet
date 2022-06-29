@@ -27,11 +27,11 @@ class MapViewModel @Inject constructor(
         Log.d("Exception", throwable.toString())
     }
 
-    fun addMark(pet: Pet){
-        viewModelScope.launch(exceptionHandler){
-            addPetUseCase(pet)
-        }
-    }
+//    fun addMark(pet: Pet){
+//        viewModelScope.launch(exceptionHandler){
+//            addPetUseCase(pet)
+//        }
+//    }
 
     fun getPets(){
         viewModelScope.launch(exceptionHandler) {

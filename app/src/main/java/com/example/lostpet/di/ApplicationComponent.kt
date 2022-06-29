@@ -1,6 +1,7 @@
 package com.example.lostpet.di
 
 import android.content.Context
+import com.example.lostpet.ui.screens.AddMarkFragment
 import com.example.lostpet.ui.screens.MapFragment
 import com.example.lostpet.ui.screens.RegistrationFragment
 import dagger.BindsInstance
@@ -14,6 +15,8 @@ interface ApplicationComponent {
     fun inject(fragment: MapFragment)
 
     fun inject(fragment: RegistrationFragment)
+
+    fun inject(fragment: AddMarkFragment)
 
     @Component.Builder
     interface Builder {

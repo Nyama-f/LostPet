@@ -15,6 +15,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.lostpet.R
 import com.example.lostpet.databinding.FragmentMapsBinding
 import com.example.lostpet.ui.viewmodels.MapViewModel
@@ -62,7 +63,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
         googleMap.setOnMyLocationButtonClickListener(this)
         googleMap.setOnMyLocationClickListener(this)
         enableMyLocation()
-        addMarker(map)
+        addMarker(map,)
     }
 
     override fun onCreateView(
@@ -96,14 +97,16 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
                 if(isCheckedFABOnMap){
                     val myPos = latLng
                     mMap.animateCamera(CameraUpdateFactory.newLatLng(myPos))
-                    // val secPos = myPos
                     mMap.addMarker(
                         MarkerOptions()
                             .position(myPos)
-                            .draggable(true))
+                    )
                     isCheckedFABOnMap = false
+                    val bundle = Bundle()
+                    bundle.putString("longitude", latLng.longitude.toString())
+                    bundle.putString("latitude", latLng.latitude.toString())
+                    findNavController().navigate(R.id.action_mapFragment_to_addMarkFragment, bundle)
                 }
-
             }
         })
     }

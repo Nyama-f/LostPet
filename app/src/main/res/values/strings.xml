@@ -22,4 +22,9 @@
     <string name="notEquallyPasswordFields">Поля не совпадают</string>
     <string name="equallyPasswordFields">Поля должны совпадать</string>
     <string name="fieldIsNull">Полe обязательно к заполнению</string>
+    <!-- AddMarkFragment -->
+    <string name="describedOfPet">Опишите животное своими словами</string>
+    <string name="typeOfPet">Тип животного</string>
+    <string name="colorOfPet">Окрас</string>
+    <string name="save">Сохранить</string>
 </resources>

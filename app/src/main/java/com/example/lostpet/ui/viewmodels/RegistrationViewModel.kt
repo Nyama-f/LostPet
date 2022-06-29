@@ -3,12 +3,11 @@ package com.example.lostpet.ui.viewmodels
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.lostpet.MainApplication
 import com.example.lostpet.data.model.User
 import com.example.lostpet.domain.useCases.AddUserUseCase
 import com.example.lostpet.domain.useCases.GetUsersUseCase
 import com.example.lostpet.utils.Consts.MAIN
-import com.example.lostpet.utils.PersistantStorage
+import com.example.lostpet.utils.PersistentStorage
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -21,7 +20,7 @@ class RegistrationViewModel @Inject constructor(
     private val getUsersUseCase: GetUsersUseCase
 ): ViewModel() {
 
-    private val sharedPreferences: PersistantStorage = PersistantStorage()
+    private val sharedPreferences: PersistentStorage = PersistentStorage()
 
     private val _users = MutableStateFlow<List<User>>(listOf())
     val users = _users.asStateFlow()
@@ -37,7 +36,6 @@ class RegistrationViewModel @Inject constructor(
         }
         with(sharedPreferences) {
             initContext(cntx = MAIN)
-            globalIdUser + 1
             addProperty(name = "userId", value = (globalIdUser + 1).toString())
             Log.d("UserNyama1","${getProperty("userId")}")
         }

@@ -52,6 +52,9 @@
         <action
             android:id="@+id/action_mapFragment_to_listOfMarksFragment"
             app:destination="@id/listOfMarksFragment" />
+        <action
+            android:id="@+id/action_mapFragment_to_addMarkFragment"
+            app:destination="@id/addMarkFragment" />
     </fragment>
     <fragment
         android:id="@+id/accountFragment"
@@ -75,6 +78,15 @@
             app:destination="@id/accountFragment" />
         <action
             android:id="@+id/action_listOfMarksFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addMarkFragment"
+        android:name="com.example.lostpet.ui.screens.AddMarkFragment"
+        android:label="fragment_add_mark"
+        tools:layout="@layout/fragment_add_mark" >
+        <action
+            android:id="@+id/action_addMarkFragment_to_mapFragment"
             app:destination="@id/mapFragment" />
     </fragment>
 </navigation>

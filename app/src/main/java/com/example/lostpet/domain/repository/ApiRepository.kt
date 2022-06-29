@@ -16,5 +16,5 @@ interface ApiRepository {
 
     fun getPet(petId: Int): Flow<Pet>
 
-    fun addPet(pet: Pet): Flow<Unit>
+    suspend fun addPet(pet: Pet, userId: Int)
 }
