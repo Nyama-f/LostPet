@@ -1,10 +1,7 @@
 package com.example.lostpet.di
 
 import android.content.Context
-import com.example.lostpet.ui.screens.AccountFragment
-import com.example.lostpet.ui.screens.AddMarkFragment
-import com.example.lostpet.ui.screens.MapFragment
-import com.example.lostpet.ui.screens.RegistrationFragment
+import com.example.lostpet.ui.screens.*
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -20,6 +17,8 @@ interface ApplicationComponent {
     fun inject(fragment: AddMarkFragment)
 
     fun inject(fragment: AccountFragment)
+
+    fun inject(fragment: ListOfMarksFragment)
 
     @Component.Builder
     interface Builder {

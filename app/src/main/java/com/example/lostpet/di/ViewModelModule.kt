@@ -1,10 +1,7 @@
 package com.example.lostpet.di
 
 import androidx.lifecycle.ViewModel
-import com.example.lostpet.ui.viewmodels.AccountViewModel
-import com.example.lostpet.ui.viewmodels.AddMarkViewModel
-import com.example.lostpet.ui.viewmodels.MapViewModel
-import com.example.lostpet.ui.viewmodels.RegistrationViewModel
+import com.example.lostpet.ui.viewmodels.*
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -32,6 +29,11 @@ interface ViewModelModule {
     @IntoMap
     @ViewModelKey(AccountViewModel::class)
     fun bindAccountViewModel(viewModel: AccountViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ListOfMarksViewModel::class)
+    fun bindListOfMarksViewModel(viewModel: ListOfMarksViewModel): ViewModel
 
 //    @Binds
 //    fun viewModelFactory(viewModel: MapViewModel): ViewModelProvider.Factory

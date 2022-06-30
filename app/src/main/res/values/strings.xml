@@ -27,5 +27,6 @@
     <string name="typeOfPet">Тип животного</string>
     <string name="colorOfPet">Окрас</string>
     <string name="save">Сохранить</string>
-    <!-- PetCardAdapter -->
+    <!-- ListOfMarks -->
+    <string name="authorOfMark">Автор метки</string>
 </resources>
