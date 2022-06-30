@@ -6,12 +6,13 @@ import com.example.lostpet.domain.useCases.GetPetsUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
+import okhttp3.internal.userAgent
 import javax.inject.Inject
 
 class GetPetsUseCaseImpl @Inject constructor(
     private val apiRepository: ApiRepository
 ): GetPetsUseCase {
-    override fun invoke(): Flow<List<Pet>> {
-        return apiRepository.getPets().flowOn(Dispatchers.IO)
+    override fun invoke(userId: Int): Flow<List<Pet>> {
+        return apiRepository.getPets(userId = userId).flowOn(Dispatchers.IO)
     }
 }

@@ -4,6 +4,6 @@ import com.example.lostpet.data.model.Pet
 
 interface AddPetUseCase {
 
-    operator fun invoke(pet: Pet)
+   suspend operator fun invoke(pet: Pet, userId: Int)
 
 }

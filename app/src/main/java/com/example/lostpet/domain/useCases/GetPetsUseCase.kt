@@ -5,6 +5,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface GetPetsUseCase {
 
-    operator fun invoke(): Flow<List<Pet>>
+    operator fun invoke(userId: Int): Flow<List<Pet>>
 
 }

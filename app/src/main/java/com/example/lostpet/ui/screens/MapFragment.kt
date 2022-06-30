@@ -15,6 +15,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.lostpet.R
 import com.example.lostpet.databinding.FragmentMapsBinding
 import com.example.lostpet.ui.viewmodels.MapViewModel
@@ -26,6 +27,7 @@ import com.example.lostpet.utils.appComponent
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 
@@ -54,6 +56,8 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
     override fun onAttach(context: Context) {
         super.onAttach(context)
         requireContext().appComponent.inject(this)
+        viewModel.getUsers()
+        viewModel.getPets()
     }
 
     private val callback = OnMapReadyCallback { googleMap ->
@@ -63,6 +67,11 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
         googleMap.setOnMyLocationClickListener(this)
         enableMyLocation()
         addMarker(map)
+
+        for(i in viewModel.pets.value){
+            Log.d("Pet", "${i.petLatitude.toDouble()} ${i.petLongitude.toDouble()}")
+            setMarker(map, i.petLatitude.toDouble(), i.petLongitude.toDouble())
+        }
     }
 
     override fun onCreateView(
@@ -87,6 +96,13 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
             }
 
         }
+    // Установка меток
+    private fun setMarker(mMap: GoogleMap, latitude: Double, longitude: Double){
+        mMap.addMarker(
+            MarkerOptions()
+                .position(LatLng(latitude,longitude))
+        )
+    }
 
     // Добавление маркера
     private fun addMarker(mMap: GoogleMap){
@@ -96,14 +112,16 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
                 if(isCheckedFABOnMap){
                     val myPos = latLng
                     mMap.animateCamera(CameraUpdateFactory.newLatLng(myPos))
-                    // val secPos = myPos
                     mMap.addMarker(
                         MarkerOptions()
                             .position(myPos)
-                            .draggable(true))
+                    )
                     isCheckedFABOnMap = false
+                    val bundle = Bundle()
+                    bundle.putString("longitude", latLng.longitude.toString())
+                    bundle.putString("latitude", latLng.latitude.toString())
+                    findNavController().navigate(R.id.action_mapFragment_to_addMarkFragment, bundle)
                 }
-
             }
         })
     }

@@ -29,8 +29,5 @@ class MainApplication: Application() {
             .appContext(this)
             .build()
     }
-    companion object{
-        var globalUserId = 0
-    }
 
 }

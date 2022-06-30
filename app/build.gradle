@@ -39,6 +39,7 @@ android {
 
 dependencies {
 
+
     // Fragment
     implementation 'androidx.fragment:fragment:1.4.1'
 

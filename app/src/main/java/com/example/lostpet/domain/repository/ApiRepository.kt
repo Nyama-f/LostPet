@@ -12,9 +12,9 @@ interface ApiRepository {
 
     suspend fun addUser(user: User)
 
-    fun getPets(): Flow<List<Pet>>
+    fun getPets(userId: Int): Flow<List<Pet>>
 
     fun getPet(petId: Int): Flow<Pet>
 
-    fun addPet(pet: Pet): Flow<Unit>
+    suspend fun addPet(pet: Pet, userId: Int)
 }
