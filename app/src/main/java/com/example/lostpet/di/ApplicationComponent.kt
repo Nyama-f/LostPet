@@ -1,6 +1,7 @@
 package com.example.lostpet.di
 
 import android.content.Context
+import com.example.lostpet.ui.screens.AccountFragment
 import com.example.lostpet.ui.screens.AddMarkFragment
 import com.example.lostpet.ui.screens.MapFragment
 import com.example.lostpet.ui.screens.RegistrationFragment
@@ -17,6 +18,8 @@ interface ApplicationComponent {
     fun inject(fragment: RegistrationFragment)
 
     fun inject(fragment: AddMarkFragment)
+
+    fun inject(fragment: AccountFragment)
 
     @Component.Builder
     interface Builder {

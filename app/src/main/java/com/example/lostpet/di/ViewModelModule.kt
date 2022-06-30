@@ -1,7 +1,7 @@
 package com.example.lostpet.di
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import com.example.lostpet.ui.viewmodels.AccountViewModel
 import com.example.lostpet.ui.viewmodels.AddMarkViewModel
 import com.example.lostpet.ui.viewmodels.MapViewModel
 import com.example.lostpet.ui.viewmodels.RegistrationViewModel
@@ -27,6 +27,11 @@ interface ViewModelModule {
     @IntoMap
     @ViewModelKey(AddMarkViewModel::class)
     fun bindAddmarkViewModel(viewModel: AddMarkViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AccountViewModel::class)
+    fun bindAccountViewModel(viewModel: AccountViewModel): ViewModel
 
 //    @Binds
 //    fun viewModelFactory(viewModel: MapViewModel): ViewModelProvider.Factory
