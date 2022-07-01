@@ -1,21 +1,28 @@
 package com.example.lostpet.ui.dialogfragments
 
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import com.example.lostpet.R
 import com.example.lostpet.data.model.Pet
 import com.example.lostpet.databinding.FragmentDetailMarkerBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-private const val COLLAPSED_HEIGHT = 228
+private const val COLLAPSED_HEIGHT = 250
 
 class DetailMarkerFragment : BottomSheetDialogFragment() {
 
     private var _binding: FragmentDetailMarkerBinding? = null
     private val binding get() = checkNotNull(_binding) { "Binding is null" }
+
+    override fun getTheme() = R.style.AppBottomSheetDialogTheme
+
 
     private val pet: Pet? by lazy {
         arguments?.getParcelable<Pet>("pet")
@@ -34,6 +41,37 @@ class DetailMarkerFragment : BottomSheetDialogFragment() {
             // Выставляем высоту для состояния collapsed и выставляем состояние collapsed
             behavior.peekHeight = (COLLAPSED_HEIGHT * density).toInt()
             behavior.state = BottomSheetBehavior.STATE_COLLAPSED
+
+            // Достаём корневые лэйауты
+            val coordinator = (it as BottomSheetDialog).findViewById<CoordinatorLayout>(com.google.android.material.R.id.coordinator)
+            val containerLayout = it.findViewById<FrameLayout>(com.google.android.material.R.id.container)
+
+            // Надуваем наш лэйаут с кнопкой
+            val buttons = it.layoutInflater.inflate(R.layout.sticky_button, null)
+
+            // Выставляем параметры для нашей кнопки
+            buttons.layoutParams = FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.WRAP_CONTENT
+            ).apply {
+                height = (60 * density).toInt()
+                gravity = Gravity.BOTTOM
+            }
+            // Добавляем кнопку в контейнер
+            containerLayout?.addView(buttons)
+
+            // Перерисовываем лэйаут
+            buttons.post {
+                (coordinator?.layoutParams as ViewGroup.MarginLayoutParams).apply {
+                    buttons.measure(
+                        View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+                        View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+                    )
+                    // Устраняем разрыв между кнопкой и скролящейся частью
+                    this.bottomMargin = (buttons.measuredHeight - 8 * density).toInt()
+                    containerLayout?.requestLayout()
+                }
+            }
 
             behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
 
@@ -54,6 +92,10 @@ class DetailMarkerFragment : BottomSheetDialogFragment() {
                             if (slideOffset > 0.5) {
                                 layoutCollapsed.visibility = View.GONE
                                 layoutExpanded.visibility = View.VISIBLE
+                                textExpandedTypePet.text = pet?.petType
+                                textExpandedColorPet.text = pet?.petColor
+                                textExpandedAuthorPet.text = pet?.petUserId.toString()
+                                textDescriptionOfPet.text = pet?.petDescription
                             }
 
                             // Если же оффсет меньше половины, а expanded layout всё ещё виден, то нужно скрывать его и показывать collapsed
@@ -81,6 +123,10 @@ class DetailMarkerFragment : BottomSheetDialogFragment() {
             textTypePet.text = pet?.petType
             textColorPet.text = pet?.petColor
             textAuthorPet.text = pet?.petUserId.toString()
+            textExpandedTypePet.text = pet?.petType
+            textExpandedColorPet.text = pet?.petColor
+            textExpandedAuthorPet.text = pet?.petUserId.toString()
+            textDescriptionOfPet.text = pet?.petDescription
         }
     }
 

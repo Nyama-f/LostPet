@@ -29,4 +29,6 @@
     <string name="save">Сохранить</string>
     <!-- ListOfMarks -->
     <string name="authorOfMark">Автор метки</string>
+    <!-- DetailMarkerFragment.kt -->
+    <string name="GetInTouchAuthor">Связаться с автором</string>
 </resources>

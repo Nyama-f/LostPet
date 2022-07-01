@@ -8,20 +8,32 @@
     tools:context=".ui.dialogfragments.DetailMarkerFragment">
 
     <LinearLayout
-        android:id="@+id/layout_collapsed"
+        android:id="@+id/layout_top"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
+        android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:orientation="vertical">
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/imagePet"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
             android:contentDescription="@string/typeOfPet"
-            android:src="@drawable/pets2"
-            app:tint="@color/black" />
+            android:src="@drawable/unnamed"
+             />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_collapsed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_top">
+
 
         <TextView
             android:id="@+id/textTypePet"
@@ -60,25 +72,50 @@
         android:orientation="vertical"
         android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layout_collapsed">
+        app:layout_constraintTop_toBottomOf="@id/layout_top">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="72dp"
-        android:orientation="vertical">
-
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/describedOfPet"/>
+            android:layout_marginBottom="30dp"
+            android:orientation="vertical">
 
-        <com.google.android.material.button.MaterialButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Связаться с автором"/>
+            <TextView
+                android:id="@+id/textExpandedTypePet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="@string/typeOfPet"
+                android:textSize="30sp" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/textExpandedColorPet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="@string/colorOfPet"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/textExpandedAuthorPet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:layout_marginBottom="20dp"
+                android:text="@string/authorOfMark"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/textDescriptionOfPet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/describedOfPet"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
