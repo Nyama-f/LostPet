@@ -1,7 +1,10 @@
 package com.example.lostpet.data.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Pet(
     val petAvatar: String,
     @SerializedName("typePet")
@@ -16,4 +19,4 @@ data class Pet(
     val petLongitude: String,
     @SerializedName("userId")
     val petUserId: Int
-)
+): Parcelable

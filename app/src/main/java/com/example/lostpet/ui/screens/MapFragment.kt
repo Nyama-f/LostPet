@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.lostpet.R
+import com.example.lostpet.data.model.Pet
 import com.example.lostpet.databinding.FragmentMapsBinding
 import com.example.lostpet.ui.viewmodels.MapViewModel
 import com.example.lostpet.ui.viewmodels.ViewModelFactory
@@ -26,6 +27,7 @@ import com.example.lostpet.utils.PermissionUtils.isPermissionGranted
 import com.example.lostpet.utils.appComponent
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.coroutines.delay
 import javax.inject.Inject
@@ -33,10 +35,12 @@ import javax.inject.Inject
 
 class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
     GoogleMap.OnMyLocationClickListener, OnMapReadyCallback,
-    ActivityCompat.OnRequestPermissionsResultCallback {
+    ActivityCompat.OnRequestPermissionsResultCallback{
 
     private var _binding: FragmentMapsBinding? = null
     private val binding get() = checkNotNull(_binding) { "Binding is null" }
+
+    private var listMarkers = mutableListOf<Marker>()
 
 
     @Inject
@@ -68,10 +72,11 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
         enableMyLocation()
         addMarker(map)
 
-        for(i in viewModel.pets.value){
-            Log.d("Pet", "${i.petLatitude.toDouble()} ${i.petLongitude.toDouble()}")
-            setMarker(map, i.petLatitude.toDouble(), i.petLongitude.toDouble())
+        for(pet in viewModel.pets.value){
+            //Log.d("Pet", "${pet.petLatitude.toDouble()} ${pet.petLongitude.toDouble()}")
+            setMarker(map, pet)
         }
+        slideBottomSheetDialogFragment(map)
     }
 
     override fun onCreateView(
@@ -94,14 +99,28 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
             isCheckedFABOnMap = !isCheckedFABOnMap
             isCounterFABOnMap++
             }
-
         }
     // Установка меток
-    private fun setMarker(mMap: GoogleMap, latitude: Double, longitude: Double){
-        mMap.addMarker(
+    private fun setMarker(mMap: GoogleMap, pet: Pet){
+        var marker = mMap.addMarker(
             MarkerOptions()
-                .position(LatLng(latitude,longitude))
+                .title(pet.petType)
+                .position(LatLng(pet.petLatitude.toDouble(),pet.petLongitude.toDouble()))
         )
+        marker?.tag = pet
+        //marker?.let { listMarkers.add(it) }
+    }
+
+    private fun slideBottomSheetDialogFragment (mMap: GoogleMap){
+        mMap.setOnMarkerClickListener(object: GoogleMap.OnMarkerClickListener{
+            override fun onMarkerClick(marker: Marker): Boolean {
+                val pet: Pet = (marker.tag) as Pet
+                val bundle = Bundle()
+                bundle.putParcelable("pet", pet)
+                findNavController().navigate(R.id.action_mapFragment_to_detailMarkerFragment, bundle)
+                return true
+            }
+        })
     }
 
     // Добавление маркера
@@ -250,4 +269,5 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
          */
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
     }
+
 }

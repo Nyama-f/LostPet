@@ -19,6 +19,7 @@ class MapViewModel @Inject constructor(
     private val _pets = MutableStateFlow<List<Pet>>(listOf())
     val pets = _pets.asStateFlow()
 
+
     private val _users = MutableStateFlow<List<User>>(listOf())
     val users = _users.asStateFlow()
 

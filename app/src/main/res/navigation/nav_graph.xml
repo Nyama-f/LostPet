@@ -55,6 +55,9 @@
         <action
             android:id="@+id/action_mapFragment_to_addMarkFragment"
             app:destination="@id/addMarkFragment" />
+        <action
+            android:id="@+id/action_mapFragment_to_detailMarkerFragment"
+            app:destination="@id/detailMarkerFragment" />
     </fragment>
     <fragment
         android:id="@+id/accountFragment"
@@ -89,4 +92,9 @@
             android:id="@+id/action_addMarkFragment_to_mapFragment"
             app:destination="@id/mapFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/detailMarkerFragment"
+        android:name="com.example.lostpet.ui.dialogfragments.DetailMarkerFragment"
+        android:label="fragment_detail_marker"
+        tools:layout="@layout/fragment_detail_marker" />
 </navigation>
