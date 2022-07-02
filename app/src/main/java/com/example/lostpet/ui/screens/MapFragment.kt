@@ -60,8 +60,6 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
     override fun onAttach(context: Context) {
         super.onAttach(context)
         requireContext().appComponent.inject(this)
-        viewModel.getUsers()
-        viewModel.getPets()
     }
 
     private val callback = OnMapReadyCallback { googleMap ->
@@ -93,6 +91,8 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
+        viewModel.getUsers()
+        viewModel.getPets()
 
         val fab = binding.fabAdd
         fab.setOnClickListener {

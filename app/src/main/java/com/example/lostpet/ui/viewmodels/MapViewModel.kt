@@ -30,6 +30,7 @@ class MapViewModel @Inject constructor(
 
     fun getPets(){
         viewModelScope.launch(exceptionHandler) {
+            Log.d("Users", "${_users.value}")
             for (user in _users.value){
                 getPetsUseCase.invoke(userId = user.userId?.toInt() ?: 1)
                     .filterNotNull()
@@ -52,8 +53,3 @@ class MapViewModel @Inject constructor(
 
 }
 
-/*
-TODO:Сразу после регистарции делать
-Нужно сделать корректное добавление маркеров
-Добаввить isChecked, и сделать через ViewModel !!!
- */

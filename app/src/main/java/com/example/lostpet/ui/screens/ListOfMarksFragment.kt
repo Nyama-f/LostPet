@@ -33,8 +33,6 @@ class ListOfMarksFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         requireContext().appComponent.inject(this)
-        viewModel.getUsers()
-        viewModel.getPets()
     }
 
     override fun onCreateView(
@@ -48,6 +46,8 @@ class ListOfMarksFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.getUsers()
+        viewModel.getPets()
 
         with(binding){
             commonPetList.adapter = commonPetAdapter
