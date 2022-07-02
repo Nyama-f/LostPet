@@ -129,12 +129,6 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
             override fun onMapClick(latLng: LatLng) {
                 Log.d("View", "$isCheckedFABOnMap")
                 if(isCheckedFABOnMap){
-                    val myPos = latLng
-                    mMap.animateCamera(CameraUpdateFactory.newLatLng(myPos))
-                    mMap.addMarker(
-                        MarkerOptions()
-                            .position(myPos)
-                    )
                     isCheckedFABOnMap = false
                     val bundle = Bundle()
                     bundle.putString("longitude", latLng.longitude.toString())

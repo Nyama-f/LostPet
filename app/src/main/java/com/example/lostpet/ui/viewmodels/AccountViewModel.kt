@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.lostpet.data.model.Pet
 import com.example.lostpet.utils.PersistentStorage
 import com.example.lostpet.domain.useCases.GetPetsUseCase
+import com.example.lostpet.utils.Consts
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -17,8 +18,6 @@ class AccountViewModel @Inject constructor(
     private val getPetsUseCase: GetPetsUseCase
 ) : ViewModel() {
 
-    private val sharedPreferences: PersistentStorage = PersistentStorage()
-
     private val _pets = MutableStateFlow<List<Pet>>(listOf())
     val pets = _pets.asStateFlow()
 
@@ -29,7 +28,7 @@ class AccountViewModel @Inject constructor(
 
     fun getPets() {
         viewModelScope.launch(exceptionHandler) {
-            getPetsUseCase.invoke(userId = 1)
+            getPetsUseCase.invoke(userId = Consts.MAIN.prefs.getInt("currentUserId", 0))
                 .filterNotNull()
                 .collect {
                     _pets.emit(it)
