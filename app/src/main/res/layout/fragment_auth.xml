@@ -28,13 +28,14 @@
             android:layout_marginBottom="150dp"/>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/editText_login"
+            android:id="@+id/editTextLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/login"
             app:startIconDrawable="@drawable/login">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/innerEditTextLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
@@ -52,6 +53,7 @@
             android:layout_marginTop="16dp">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/innerEditTextPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"

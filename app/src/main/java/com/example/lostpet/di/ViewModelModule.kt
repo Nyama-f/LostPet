@@ -35,6 +35,11 @@ interface ViewModelModule {
     @ViewModelKey(ListOfMarksViewModel::class)
     fun bindListOfMarksViewModel(viewModel: ListOfMarksViewModel): ViewModel
 
+    @Binds
+    @IntoMap
+    @ViewModelKey(AuthViewModel::class)
+    fun bindAuthViewModel(viewModel: AuthViewModel): ViewModel
+
 //    @Binds
 //    fun viewModelFactory(viewModel: MapViewModel): ViewModelProvider.Factory
 

@@ -13,6 +13,7 @@ import com.example.lostpet.data.model.Pet
 import com.example.lostpet.databinding.FragmentAddMarkBinding
 import com.example.lostpet.ui.viewmodels.AddMarkViewModel
 import com.example.lostpet.ui.viewmodels.ViewModelFactory
+import com.example.lostpet.utils.Consts.MAIN
 import com.example.lostpet.utils.appComponent
 import javax.inject.Inject
 
@@ -50,9 +51,9 @@ class AddMarkFragment : Fragment() {
                 petLatitude = arguments?.getString("latitude")?: "",
                 petLongitude = arguments?.getString("longitude")?: "",
                 petType = binding.innerEditTextTypePet.text.toString(),
-                petUserId = 1
+                petUserId = MAIN.prefs.getInt("currentUserId", 0)
             )
-            viewModel.addPet(pet = pet, 1)
+            viewModel.addPet(pet = pet, MAIN.prefs.getInt("currentUserId", 0))
             //TODO Сделать добавление аватара(можно по названию файла)
             findNavController().navigate(R.id.action_addMarkFragment_to_mapFragment)
         }

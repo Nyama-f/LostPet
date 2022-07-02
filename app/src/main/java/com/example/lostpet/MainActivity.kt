@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -36,6 +37,7 @@ class MainActivity : AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         val navGraph = navController.navInflater.inflate(R.navigation.nav_graph)
         setContentView(binding.root)
+        Log.d("Shared", "${prefs.getInt("currentUserId", -1)}")
         when{
             MAIN.prefs.getInt("currentUserId", 0) == 0 -> {
                 navGraph.setStartDestination(R.id.signFlowFragment)

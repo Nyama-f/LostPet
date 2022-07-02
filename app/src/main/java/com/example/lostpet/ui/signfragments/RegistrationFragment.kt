@@ -2,7 +2,6 @@ package com.example.lostpet.ui.signfragments
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +14,6 @@ import com.example.lostpet.data.model.User
 import com.example.lostpet.databinding.FragmentRegistrationBinding
 import com.example.lostpet.ui.viewmodels.RegistrationViewModel
 import com.example.lostpet.ui.viewmodels.ViewModelFactory
-import com.example.lostpet.utils.Consts.MAIN
 import com.example.lostpet.utils.TextValidator
 import com.example.lostpet.utils.appComponent
 import javax.inject.Inject
@@ -48,7 +46,9 @@ class RegistrationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        checkLoginAndNameIsNull()
+        binding.btnRegistration.setOnClickListener { v -> v.isClickable = false }
+        checkLoginIsNull()
+        checkdNameIsNull()
         checkPasswordsEditTextInputEachOther()
         binding.btnRegistration.setOnClickListener {
             val user = User(
@@ -60,13 +60,16 @@ class RegistrationFragment : Fragment() {
                 listOfMarks = mutableListOf()
             )
             viewModel.addUser(user = user)
-            val perfValue = MAIN.prefs.getInt("currentUserId", 0)
-            MAIN.prefs.edit().putInt("currentUserId", perfValue+ 1).commit()
-            Log.d("Shared", "ID last user : ${MAIN.prefs.getInt("currentUserId", 0)}")
            // var users = viewModel.getUsers()
            // Log.d("UserNyama1", "$users")
             //TODO Сделать добавление аватара(можно по названию файла)
-            findNavController().navigate(R.id.action_registrationFragment_to_authFragment)
+            // Возможно стоит проверять строки на пустоту уже в конце, а не в валидаторе
+            if(binding.innerEditTextLogin.text != null &&
+                binding.innerEditTextPassword.text != null &&
+                binding.innerEditTextPasswordRepeat.text != null &&
+                binding.innerEditTextName.text != null){
+                findNavController().navigate(R.id.action_registrationFragment_to_authFragment)
+            }
         }
     }
 
@@ -79,40 +82,49 @@ class RegistrationFragment : Fragment() {
                 if(innerPassword.text.toString() != innerPasswordRepeat.text.toString()){
                     passwordRepeat.error = getString(R.string.notEquallyPasswordFields)
                     passwordRepeat.isErrorEnabled = true
+                    binding.btnRegistration.isEnabled = false
                 }
                 if (innerPassword.text.toString() == innerPasswordRepeat.text.toString()) {
                     passwordRepeat.error = null
                     passwordRepeat.isErrorEnabled = false
+                    binding.btnRegistration.isEnabled = true
                 }
             }
 
         })
     }
 
-    private fun checkLoginAndNameIsNull(){
+    private fun checkdNameIsNull(){
         val innerName = binding.innerEditTextName
         val nameField = binding.editTextName
-        val innerLogin = binding.innerEditTextLogin
-        val loginField = binding.editTextLogin
         innerName.addTextChangedListener(object : TextValidator(innerName){
             override fun validate(textView: TextView?, text: String?) {
                 if(innerName.text.toString().trim().length == 0) {
                     nameField.error = getString(R.string.fieldIsNull)
                     nameField.isErrorEnabled = true
+                    binding.btnRegistration.isEnabled = false
                 }else {
                     nameField.error = null
                     nameField.isErrorEnabled = false
+                    binding.btnRegistration.isEnabled = true
                 }
             }
         })
+    }
+
+    private fun checkLoginIsNull(){
+        val innerLogin = binding.innerEditTextLogin
+        val loginField = binding.editTextLogin
         innerLogin.addTextChangedListener(object : TextValidator(innerLogin){
             override fun validate(textView: TextView?, text: String?) {
                 if(innerLogin.text.toString().trim().length == 0) {
                     loginField.error = getString(R.string.fieldIsNull)
                     loginField.isErrorEnabled = true
+                    binding.btnRegistration.isEnabled = false
                 }else {
                     loginField.error = null
                     loginField.isErrorEnabled = false
+                    binding.btnRegistration.isEnabled = true
                 }
             }
 
