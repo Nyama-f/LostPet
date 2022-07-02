@@ -3,6 +3,7 @@ package com.example.lostpet.ui.viewmodels
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.lostpet.MainApplication
 import com.example.lostpet.data.model.User
 import com.example.lostpet.domain.useCases.AddUserUseCase
 import com.example.lostpet.domain.useCases.GetUsersUseCase
@@ -36,9 +37,11 @@ class RegistrationViewModel @Inject constructor(
         }
         with(sharedPreferences) {
             initContext(cntx = MAIN)
-            addProperty(name = "userId", value = (globalIdUser + 1).toString())
+            addProperty(name = "currentUserId", value = (MainApplication.globalCurrentUserId + 1).toString())
            // Log.d("UserNyama1","${getProperty("userId")}")
         }
+
+        //var refs = MAIN.getSharedPreferences
     }
 
     fun getUsers(){
