@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/mapFragment">
+
+        <fragment
+            android:id="@+id/mapFragment"
+            android:name="com.example.lostpet.ui.screens.MapFragment"
+            android:label="fragment_maps"
+            tools:layout="@layout/fragment_maps" >
+            <action
+                android:id="@+id/action_mapFragment_to_listOfMarksFragment"
+                app:destination="@id/listOfMarksFragment" />
+            <action
+                android:id="@+id/action_mapFragment_to_accountFragment"
+                app:destination="@id/accountFragment" />
+            <action
+                android:id="@+id/action_mapFragment_to_addMarkFragment"
+                app:destination="@id/addMarkFragment" />
+            <action
+                android:id="@+id/action_mapFragment_to_detailMarkerFragment"
+                app:destination="@id/detailMarkerFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/accountFragment"
+            android:name="com.example.lostpet.ui.screens.AccountFragment"
+            android:label="fragment_account"
+            tools:layout="@layout/fragment_account" >
+            <action
+                android:id="@+id/action_accountFragment_to_detailMarkerFragment"
+                app:destination="@id/detailMarkerFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/listOfMarksFragment"
+            android:name="com.example.lostpet.ui.screens.ListOfMarksFragment"
+            android:label="fragment_list_of_marks"
+            tools:layout="@layout/fragment_list_of_marks" >
+            <action
+                android:id="@+id/action_listOfMarksFragment_to_detailMarkerFragment"
+                app:destination="@id/detailMarkerFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/addMarkFragment"
+            android:name="com.example.lostpet.ui.screens.AddMarkFragment"
+            android:label="fragment_add_mark"
+            tools:layout="@layout/fragment_add_mark" >
+            <action
+                android:id="@+id/action_addMarkFragment_to_mapFragment"
+                app:destination="@id/mapFragment" />
+        </fragment>
+        <dialog
+            android:id="@+id/detailMarkerFragment"
+            android:name="com.example.lostpet.ui.dialogfragments.DetailMarkerFragment"
+            android:label="fragment_detail_marker"
+            tools:layout="@layout/fragment_detail_marker" />
+
+</navigation>

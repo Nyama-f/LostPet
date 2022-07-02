@@ -22,12 +22,17 @@ class MainApplication: Application() {
         "Application component wasn't initialized"
     }
 
+
     override fun onCreate() {
         super.onCreate()
 
         _appComponent = DaggerApplicationComponent.builder()
             .appContext(this)
             .build()
+    }
+
+    companion object{
+        var globalCurrentUserId = 0
     }
 
 }

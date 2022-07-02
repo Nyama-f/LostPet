@@ -2,6 +2,7 @@ package com.example.lostpet.di
 
 import android.content.Context
 import com.example.lostpet.ui.screens.*
+import com.example.lostpet.ui.signfragments.RegistrationFragment
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
