@@ -2,6 +2,7 @@ package com.example.lostpet.ui.signfragments
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,7 @@ import com.example.lostpet.data.model.User
 import com.example.lostpet.databinding.FragmentRegistrationBinding
 import com.example.lostpet.ui.viewmodels.RegistrationViewModel
 import com.example.lostpet.ui.viewmodels.ViewModelFactory
+import com.example.lostpet.utils.Consts.MAIN
 import com.example.lostpet.utils.TextValidator
 import com.example.lostpet.utils.appComponent
 import javax.inject.Inject
@@ -58,6 +60,9 @@ class RegistrationFragment : Fragment() {
                 listOfMarks = mutableListOf()
             )
             viewModel.addUser(user = user)
+            val perfValue = MAIN.prefs.getInt("currentUserId", 0)
+            MAIN.prefs.edit().putInt("currentUserId", perfValue+ 1).commit()
+            Log.d("Shared", "ID last user : ${MAIN.prefs.getInt("currentUserId", 0)}")
            // var users = viewModel.getUsers()
            // Log.d("UserNyama1", "$users")
             //TODO Сделать добавление аватара(можно по названию файла)

@@ -15,6 +15,8 @@ class MainActivity : AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null
     private val binding get() = checkNotNull(_binding) { "Binding is null" }
 
+    val prefs by lazy { this.getSharedPreferences("currentUserId", Context.MODE_PRIVATE) }
+
     private val navController by lazy {
         val navFragment =
             supportFragmentManager.findFragmentById(R.id.navContainer) as NavHostFragment
@@ -29,20 +31,20 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        MAIN = this
+        if(prefs.getInt("currentUserId", -1) == -1) prefs.edit().putInt("currentUserId", 0).commit()
         _binding = ActivityMainBinding.inflate(layoutInflater)
-        var prefs = this.getSharedPreferences("currentUserId", Context.MODE_PRIVATE)
         val navGraph = navController.navInflater.inflate(R.navigation.nav_graph)
         setContentView(binding.root)
         when{
-            MainApplication.globalCurrentUserId == 0 -> {
+            MAIN.prefs.getInt("currentUserId", 0) == 0 -> {
                 navGraph.setStartDestination(R.id.signFlowFragment)
             }
-            MainApplication.globalCurrentUserId != 0 -> {
+            MAIN.prefs.getInt("currentUserId", 0) != 0 -> {
                 navGraph.setStartDestination(R.id.mainFlowFragment)
             }
         }
         navController.graph = navGraph
-        MAIN = this
 
       //  binding.bottomNav.setupWithNavController(navController)
         // binding.bottomNav.itemIconTintList = null
