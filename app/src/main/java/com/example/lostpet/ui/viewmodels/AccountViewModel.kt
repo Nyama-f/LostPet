@@ -18,7 +18,8 @@ class AccountViewModel @Inject constructor(
     private val getPetsUseCase: GetPetsUseCase,
     private val getUserUseCase: GetUserUseCase,
     private val editUserUseCase: EditUserUseCase,
-    private val deleteUserUseCase: DeleteUserUseCase
+    private val deleteUserUseCase: DeleteUserUseCase,
+    private val deletePetUseCase: DeletePetUseCase
 ) : ViewModel() {
 
     private val _pets = MutableStateFlow<List<Pet>>(listOf())
@@ -56,6 +57,14 @@ class AccountViewModel @Inject constructor(
                 .collect {
                     _user.emit(it)
                 }
+        }
+    }
+
+    fun deletePet(petId: Int){
+        viewModelScope.launch(exceptionHandler){
+            Log.d("DelUser", "В AccountViewModel UserId ${Consts.MAIN.prefs.getInt("currentUserId", 0)} petId ${petId}")
+            deletePetUseCase.invoke(Consts.MAIN.prefs.getInt("currentUserId", 0), petId = petId)
+
         }
     }
 

@@ -34,7 +34,7 @@ interface ApiService {
     @PUT("user/{userId}/mark/{markId}")
     suspend fun editPet(@Path("userId") userId: Int, @Path("markId") petId: Int): Pet
 
-    @DELETE("user/{id}/mark/{id}")
+    @DELETE("user/{userId}/mark/{markId}")
     suspend fun deletePet(@Path("userId") userId: Int, @Path("markId") petId: Int)
 
 }

@@ -9,7 +9,7 @@ import com.example.lostpet.databinding.PetCardViewBinding
 class PetCardAdapter: RecyclerView.Adapter<PetCardAdapter.PetCardViewHolder>() {
     private val pets: MutableList<Pet> = mutableListOf()
 
-    var cardImageClickListener: (() -> Unit)? = null
+    var cardButtonDelClickListener: ((petId: Int) -> Unit)? = null
 
     fun setList(list: List<Pet>) {
         pets.clear()
@@ -44,7 +44,7 @@ class PetCardAdapter: RecyclerView.Adapter<PetCardAdapter.PetCardViewHolder>() {
             with(binding) {
                 textTypePet.text = pet.petType
                 textColorPet.text = pet.petColor
-                containerCard.setOnClickListener { cardImageClickListener?.invoke() }
+                btnDelete.setOnClickListener { cardButtonDelClickListener?.invoke(pet.petUserId) }
             }
         }
     }
