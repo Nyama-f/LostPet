@@ -35,4 +35,6 @@
     <!-- AccountFragment -->
     <string name="userName">Имя</string>
     <string name="userNumber">Номер телефона</string>
+    <string name="edit">Редактирование</string>
+    <string name="logOutOfAccount">Выход из аккаунта</string>
 </resources>

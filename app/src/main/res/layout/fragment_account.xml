@@ -17,7 +17,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:paddingEnd="50dp"
             android:scaleType="fitXY"
             android:src="@drawable/unnamed"/>
         <LinearLayout
@@ -29,6 +28,7 @@
                 android:id="@+id/userName"
                 android:gravity="center"
                 android:layout_weight="1"
+                android:textSize="18sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/userName"/>
@@ -36,6 +36,7 @@
                 android:id="@+id/userPhone"
                 android:gravity="center"
                 android:layout_weight="1"
+                android:textSize="18sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/userNumber"/>
@@ -45,17 +46,19 @@
     </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnEdit"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Редактирование"
+        android:text="@string/edit"
         />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnDelete"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/lightRef"
-        android:text="Выход из аккаунта"
+        android:text="@string/logOutOfAccount"
         />
 
     <androidx.recyclerview.widget.RecyclerView
