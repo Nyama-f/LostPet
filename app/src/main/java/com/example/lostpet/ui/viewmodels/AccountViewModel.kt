@@ -4,8 +4,8 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.lostpet.data.model.Pet
-import com.example.lostpet.utils.PersistentStorage
-import com.example.lostpet.domain.useCases.GetPetsUseCase
+import com.example.lostpet.data.model.User
+import com.example.lostpet.domain.useCases.*
 import com.example.lostpet.utils.Consts
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,11 +15,25 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class AccountViewModel @Inject constructor(
-    private val getPetsUseCase: GetPetsUseCase
+    private val getPetsUseCase: GetPetsUseCase,
+    private val getUserUseCase: GetUserUseCase,
+    private val editUserUseCase: EditUserUseCase,
+    private val deleteUserUseCase: DeleteUserUseCase
 ) : ViewModel() {
 
     private val _pets = MutableStateFlow<List<Pet>>(listOf())
     val pets = _pets.asStateFlow()
+
+    private val _user = MutableStateFlow(User(
+        "None",
+        "",
+        "",
+        "",
+        "",
+        mutableListOf()
+    ))
+    val user = _user.asStateFlow()
+
 
 
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
@@ -34,6 +48,35 @@ class AccountViewModel @Inject constructor(
                     _pets.emit(it)
                 }
         }
+    }
+    fun getUser() {
+        viewModelScope.launch(exceptionHandler) {
+            getUserUseCase.invoke(userId = Consts.MAIN.prefs.getInt("currentUserId", 0))
+                .filterNotNull()
+                .collect {
+                    _user.emit(it)
+                }
+        }
+    }
+
+    fun editUser(){
+        viewModelScope.launch(exceptionHandler){
+            editUserUseCase.invoke(userId = Consts.MAIN.prefs.getInt("currentUserId", 0))
+                .collect{
+                    _user.emit(it)
+                }
+        }
+    }
+
+    fun deleteUser(){
+        viewModelScope.launch(exceptionHandler){
+            deleteUserUseCase.invoke(userId = Consts.MAIN.prefs.getInt("currentUserId", 0))
+            Consts.MAIN.prefs.edit().putInt("currentUserId", 0).commit()
+        }
+    }
+
+    fun outOfAccount(){
+        Consts.MAIN.prefs.edit().putInt("currentUserId", 0).commit()
     }
 
 }

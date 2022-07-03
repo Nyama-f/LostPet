@@ -19,7 +19,7 @@ interface ApiService {
     suspend fun editUser(@Path("id") userId: Int): User
 
     @DELETE("user/{id}")
-    suspend fun deleteUser(@Path("id") userId: Int): User
+    suspend fun deleteUser(@Path("id") userId: Int)
 
 
     @GET("user/{id}/mark")
@@ -35,6 +35,6 @@ interface ApiService {
     suspend fun editPet(@Path("userId") userId: Int, @Path("markId") petId: Int): Pet
 
     @DELETE("user/{id}/mark/{id}")
-    suspend fun deletePet(@Path("id") petId: Int): Pet
+    suspend fun deletePet(@Path("userId") userId: Int, @Path("markId") petId: Int)
 
 }

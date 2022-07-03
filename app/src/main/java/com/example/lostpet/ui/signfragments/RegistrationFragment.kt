@@ -38,10 +38,9 @@ class RegistrationFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentRegistrationBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,11 +48,12 @@ class RegistrationFragment : Fragment() {
         binding.btnRegistration.setOnClickListener { v -> v.isClickable = false }
         checkLoginIsNull()
         checkdNameIsNull()
+        checkPhoneIsNull()
         checkPasswordsEditTextInputEachOther()
         binding.btnRegistration.setOnClickListener {
             val user = User(
                 userName = binding.innerEditTextName.text.toString(),
-                userAvatar = "123",
+                userPhone = binding.innerEditTextPhone.text.toString(),
                 userLogin = binding.innerEditTextLogin.text.toString(),
                 userPassword = binding.innerEditTextPassword.text.toString(),
                 userId = null,
@@ -65,6 +65,7 @@ class RegistrationFragment : Fragment() {
             //TODO Сделать добавление аватара(можно по названию файла)
             // Возможно стоит проверять строки на пустоту уже в конце, а не в валидаторе
             if(binding.innerEditTextLogin.text != null &&
+                binding.innerEditTextPhone.text != null &&
                 binding.innerEditTextPassword.text != null &&
                 binding.innerEditTextPasswordRepeat.text != null &&
                 binding.innerEditTextName.text != null){
@@ -99,7 +100,7 @@ class RegistrationFragment : Fragment() {
         val nameField = binding.editTextName
         innerName.addTextChangedListener(object : TextValidator(innerName){
             override fun validate(textView: TextView?, text: String?) {
-                if(innerName.text.toString().trim().length == 0) {
+                if(innerName.text.toString().trim().isEmpty()) {
                     nameField.error = getString(R.string.fieldIsNull)
                     nameField.isErrorEnabled = true
                     binding.btnRegistration.isEnabled = false
@@ -117,7 +118,7 @@ class RegistrationFragment : Fragment() {
         val loginField = binding.editTextLogin
         innerLogin.addTextChangedListener(object : TextValidator(innerLogin){
             override fun validate(textView: TextView?, text: String?) {
-                if(innerLogin.text.toString().trim().length == 0) {
+                if(innerLogin.text.toString().trim().isEmpty()) {
                     loginField.error = getString(R.string.fieldIsNull)
                     loginField.isErrorEnabled = true
                     binding.btnRegistration.isEnabled = false
@@ -128,6 +129,25 @@ class RegistrationFragment : Fragment() {
                 }
             }
 
+        })
+    }
+
+    private fun checkPhoneIsNull(){
+        val innerPhone = binding.innerEditTextPhone
+        val phoneField = binding.editTextPhone
+        val r1 = Regex("^(8|\\+7)(\\(?\\d{3}\\)?[\\- ]?)?[\\d\\- ]{10,11}\$")
+        innerPhone.addTextChangedListener(object : TextValidator(innerPhone){
+            override fun validate(textView: TextView?, text: String?) {
+                if(r1.matches(innerPhone.text.toString())){
+                    phoneField.error = null
+                    phoneField.isErrorEnabled = false
+                    binding.btnRegistration.isEnabled = true
+                }else{
+                    phoneField.error = getString(R.string.phoneIsIncorrect)
+                    phoneField.isErrorEnabled = true
+                    binding.btnRegistration.isEnabled = false
+                }
+            }
         })
     }
 }

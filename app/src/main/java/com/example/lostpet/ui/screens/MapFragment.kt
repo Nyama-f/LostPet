@@ -15,6 +15,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.lostpet.R
 import com.example.lostpet.data.model.Pet
@@ -53,7 +54,6 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
 
 
     private var isCheckedFABOnMap = false
-    private var isCounterFABOnMap = 0
     private lateinit var map: GoogleMap
     private var permissionDenied = false
 
@@ -69,10 +69,12 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
         googleMap.setOnMyLocationClickListener(this)
         enableMyLocation()
         addMarker(map)
-
-        for(pet in viewModel.pets.value){
-            //Log.d("Pet", "${pet.petLatitude.toDouble()} ${pet.petLongitude.toDouble()}")
-            setMarker(map, pet)
+        lifecycleScope.launchWhenResumed {
+            viewModel.pets.collect{
+                for(pet in viewModel.pets.value){
+                    setMarker(map, pet)
+                }
+            }
         }
         slideBottomSheetDialogFragment(map)
     }
@@ -97,7 +99,6 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
         val fab = binding.fabAdd
         fab.setOnClickListener {
             isCheckedFABOnMap = !isCheckedFABOnMap
-            isCounterFABOnMap++
             }
         }
     // Установка меток

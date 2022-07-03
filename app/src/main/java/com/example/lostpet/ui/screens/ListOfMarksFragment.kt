@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.lostpet.R
 import com.example.lostpet.databinding.FragmentAccountBinding
@@ -48,6 +49,13 @@ class ListOfMarksFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getUsers()
         viewModel.getPets()
+        lifecycleScope.launchWhenResumed {
+            viewModel.users.collect{
+                viewModel.pets.collect{
+                    commonPetAdapter.setList(it)
+                }
+            }
+        }
 
         with(binding){
             commonPetList.adapter = commonPetAdapter
