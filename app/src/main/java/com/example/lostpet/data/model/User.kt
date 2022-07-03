@@ -8,7 +8,7 @@ data class User(
     @SerializedName("name")
     val userName: String,
     @SerializedName("avatar")
-    val userPhone: Int,
+    val userPhone: String,
     @SerializedName("login")
     val userLogin: String,
     @SerializedName("password")

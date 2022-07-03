@@ -53,7 +53,7 @@ class AccountFragment : Fragment() {
 
         with(binding){
             userName.text = viewModel.user.value.userName
-            userPhone.text = viewModel.user.value.userPhone.toString()
+            userPhone.text = viewModel.user.value.userPhone
             petList.adapter = petAdapter
             petList.layoutManager = LinearLayoutManager(requireContext())
             petList.addItemDecoration(

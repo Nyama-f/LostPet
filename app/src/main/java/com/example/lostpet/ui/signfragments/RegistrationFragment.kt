@@ -53,7 +53,7 @@ class RegistrationFragment : Fragment() {
         binding.btnRegistration.setOnClickListener {
             val user = User(
                 userName = binding.innerEditTextName.text.toString(),
-                userPhone = binding.innerEditTextPhone.text.toString().toInt(),
+                userPhone = binding.innerEditTextPhone.text.toString(),
                 userLogin = binding.innerEditTextLogin.text.toString(),
                 userPassword = binding.innerEditTextPassword.text.toString(),
                 userId = null,

@@ -26,7 +26,7 @@ class AccountViewModel @Inject constructor(
     private val _user = MutableStateFlow(User(
         "None",
         "",
-        0,
+        "",
         "",
         "",
         mutableListOf()
