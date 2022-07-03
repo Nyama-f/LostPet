@@ -20,7 +20,9 @@ import com.example.lostpet.ui.viewmodels.AccountViewModel
 import com.example.lostpet.ui.viewmodels.MapViewModel
 import com.example.lostpet.ui.viewmodels.ViewModelFactory
 import com.example.lostpet.utils.Consts.MAIN
+import com.example.lostpet.utils.activityNavController
 import com.example.lostpet.utils.appComponent
+import com.example.lostpet.utils.navigateSafely
 import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
@@ -80,11 +82,9 @@ class AccountFragment : Fragment() {
         binding.btnDelete.setOnClickListener {
             viewModel.outOfAccount()
             Log.d("User", "${MAIN.prefs.getInt("currentUserId", 0)}")
-            val navGraph = findNavController().navInflater.inflate(R.navigation.nav_graph)
-            navGraph.setStartDestination(R.id.signFlowFragment)
-            findNavController().graph = navGraph
-            findNavController().navigate(R.id.signFlowFragment)
+            activityNavController().navigateSafely(R.id.action_global_signFlowFragment)
         }
     }
+
 
 }
