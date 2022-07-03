@@ -10,6 +10,10 @@ interface ApiRepository {
 
     fun getUser(userId: Int): Flow<User>
 
+    suspend fun deleteUser(userId: Int)
+
+    fun editUser(userId: Int): Flow<User>
+
     suspend fun addUser(user: User)
 
     fun getPets(userId: Int): Flow<List<Pet>>
@@ -17,4 +21,6 @@ interface ApiRepository {
     fun getPet(petId: Int): Flow<Pet>
 
     suspend fun addPet(pet: Pet, userId: Int)
+
+    suspend fun deletePet(userId: Int, petId: Int)
 }

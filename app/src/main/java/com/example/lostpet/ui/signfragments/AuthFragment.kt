@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.lostpet.MainApplication
 import com.example.lostpet.R
@@ -36,7 +37,6 @@ class AuthFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         requireContext().appComponent.inject(this)
-        viewModel.getUsers()
     }
 
     override fun onCreateView(
@@ -49,14 +49,19 @@ class AuthFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.getUsers()
         binding.btnEnter.isEnabled = false
         checkLoginIsNull()
         checkPasswordIsNull()
         binding.btnEnter.setOnClickListener{
             val innerLogin = binding.innerEditTextLogin.text.toString()
             val innerPassword = binding.innerEditTextPassword.text.toString()
-            if(viewModel.checkUsers(innerLogin, innerPassword)){
-                findNavController().navigate(R.id.action_authFragment_to_mainFlowFragment)
+            lifecycleScope.launchWhenResumed {
+                viewModel.users.collect{
+                    if(viewModel.checkUsers(innerLogin, innerPassword)){
+                        findNavController().navigate(R.id.action_authFragment_to_mainFlowFragment)
+                    }
+                }
             }
         }
     }

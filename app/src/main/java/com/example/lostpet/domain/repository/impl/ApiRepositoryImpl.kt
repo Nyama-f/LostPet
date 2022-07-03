@@ -22,10 +22,20 @@ class ApiRepositoryImpl @Inject constructor(
         emit(api)
     }
 
+    override suspend fun deleteUser(userId: Int){
+        apiService.deleteUser(userId = userId)
+    }
+
+    override fun editUser(userId: Int): Flow<User> =  flow {
+        val api = apiService.editUser(userId = userId)
+        emit(api)
+    }
+
     override suspend fun addUser(user: User){
        // Log.d("UserNyama2", "_")
         apiService.addUser(user = user)
     }
+
 
     override fun getPets(userId: Int): Flow<List<Pet>> = flow {
         val api = apiService.getPets(userId = userId)
@@ -39,6 +49,10 @@ class ApiRepositoryImpl @Inject constructor(
 
     override suspend fun addPet(pet: Pet, userId: Int){
         apiService.addPet(pet = pet, userId = userId)
+    }
+
+    override suspend fun deletePet(userId: Int, petId: Int){
+        apiService.deletePet(userId = userId, petId = petId)
     }
 
 }

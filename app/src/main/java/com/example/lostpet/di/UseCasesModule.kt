@@ -18,6 +18,9 @@ interface UseCasesModule {
     fun bindGetPetsUseCase(impl: GetPetsUseCaseImpl): GetPetsUseCase
 
     @Binds
+    fun bindEditPetUseCase(impl: DeletePetUseCaseImpl): DeletePetUseCase
+
+    @Binds
     fun bindAddUserUseCase(impl: AddUserUseCaseImpl): AddUserUseCase
 
     @Binds
@@ -25,5 +28,11 @@ interface UseCasesModule {
 
     @Binds
     fun bindGetUsersUseCase(impl: GetUsersUseCaseImpl): GetUsersUseCase
+
+    @Binds
+    fun bindDeleteUserUseCase(impl: DeleteUserUseCaseImpl): DeleteUserUseCase
+
+    @Binds
+    fun bindEditUserUseCase(impl: EditUserUseCaseImpl): EditUserUseCase
 
 }

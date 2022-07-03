@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.lostpet.R
 import com.example.lostpet.databinding.FragmentAccountBinding
@@ -18,6 +19,7 @@ import com.example.lostpet.ui.adapters.decorators.FeedVerticalDividerItemDecorat
 import com.example.lostpet.ui.viewmodels.AccountViewModel
 import com.example.lostpet.ui.viewmodels.MapViewModel
 import com.example.lostpet.ui.viewmodels.ViewModelFactory
+import com.example.lostpet.utils.Consts.MAIN
 import com.example.lostpet.utils.appComponent
 import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
@@ -74,6 +76,14 @@ class AccountFragment : Fragment() {
             petList.addItemDecoration(
                 FeedVerticalDividerItemDecoration(16, petAdapter.itemCount)
             )
+        }
+        binding.btnDelete.setOnClickListener {
+            viewModel.outOfAccount()
+            Log.d("User", "${MAIN.prefs.getInt("currentUserId", 0)}")
+            val navGraph = findNavController().navInflater.inflate(R.navigation.nav_graph)
+            navGraph.setStartDestination(R.id.signFlowFragment)
+            findNavController().graph = navGraph
+            findNavController().navigate(R.id.signFlowFragment)
         }
     }
 
