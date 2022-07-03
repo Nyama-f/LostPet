@@ -34,7 +34,6 @@ class AccountFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         requireContext().appComponent.inject(this)
-        viewModel.getPets()
     }
 
 
@@ -49,8 +48,12 @@ class AccountFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.getPets()
+        viewModel.getUser()
 
         with(binding){
+            userName.text = viewModel.user.value.userName
+            userPhone.text = viewModel.user.value.userPhone.toString()
             petList.adapter = petAdapter
             petList.layoutManager = LinearLayoutManager(requireContext())
             petList.addItemDecoration(

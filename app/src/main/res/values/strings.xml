@@ -19,6 +19,9 @@
     <string name="addLogin">Придумайте логин</string>
     <string name="addPassword">Придумайте пароль</string>
     <string name="addName">Ваше имя</string>
+    <string name="phone">Номер телефона</string>
+    <string name="phoneIsIncorrect">Введите настоящий номер телефона</string>
+    <string name="phoneHelp">Начните с 8 или +7</string>
     <string name="notEquallyPasswordFields">Поля не совпадают</string>
     <string name="equallyPasswordFields">Поля должны совпадать</string>
     <string name="fieldIsNull">Полe обязательно к заполнению</string>
@@ -29,4 +32,7 @@
     <string name="save">Сохранить</string>
     <!-- ListOfMarks -->
     <string name="authorOfMark">Автор метки</string>
+    <!-- AccountFragment -->
+    <string name="userName">Имя</string>
+    <string name="userNumber">Номер телефона</string>
 </resources>
