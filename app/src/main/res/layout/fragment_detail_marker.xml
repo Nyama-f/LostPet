@@ -40,17 +40,6 @@
             android:gravity="center"
             android:text="@string/colorOfPet"
             android:textSize="30sp" />
-
-        <TextView
-            android:id="@+id/textAuthorPet"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:layout_marginBottom="20dp"
-            android:text="@string/authorOfMark"
-            android:textSize="30sp" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -65,18 +54,21 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="72dp"
+        android:layout_marginTop="20dp"
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/descriptionOfPet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/describedOfPet"/>
 
-        <com.google.android.material.button.MaterialButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/getInTouchAuthor"/>
+<!--        <com.google.android.material.button.MaterialButton-->
+<!--            android:id="@+id/btnGetInTouchAuthor"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/getInTouchAuthor"/>-->
 
     </LinearLayout>
 
