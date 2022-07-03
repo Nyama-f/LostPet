@@ -39,4 +39,5 @@
     <string name="logOutOfAccount">Выход из аккаунта</string>
     <!-- DetailFragment -->
     <string name="getInTouchAuthor">Связаться с автором</string>
+    <string name="btnPhoneCall">btnPhoneCall</string>
 </resources>

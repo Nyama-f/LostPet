@@ -30,7 +30,6 @@ import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 
@@ -55,7 +54,10 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
 
     private var isCheckedFABOnMap = false
     private lateinit var map: GoogleMap
-    private var permissionDenied = false
+    private var permissionLocationDenied = false
+    private var permissionCallPhoneDenied = false
+    private var permissionCallPhoneAccept = false
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -93,6 +95,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
+        enableCallPhone()
         viewModel.getUsers()
         viewModel.getPets()
 
@@ -118,6 +121,17 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
                 val pet: Pet = (marker.tag) as Pet
                 val bundle = Bundle()
                 bundle.putParcelable("pet", pet)
+                Log.d("User", "${pet.petUserId}")
+                lifecycleScope.launchWhenResumed {
+                    viewModel.getUser(pet.petUserId)
+                    viewModel.user.collect{
+                        bundle.putString("userPhone", it.userPhone)
+                        Log.d("User", "${it.userPhone}")
+                    }
+                }
+                if(bundle.getString("userPhone", "0").length < 11){
+                    return true
+                }
                 findNavController().navigate(R.id.action_mapFragment_to_detailMarkerFragment, bundle)
                 return true
             }
@@ -148,6 +162,40 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
     /**
      * Enables the My Location layer if the fine location permission has been granted.
      */
+
+    private fun enableCallPhone() {
+
+        // 1. Check if permissions are granted, if so, enable the my location layer
+        if (ContextCompat.checkSelfPermission(requireContext(),
+                Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+                permissionCallPhoneAccept = true
+                return
+        }
+
+        // 2. If if a permission rationale dialog should be shown
+        if (ActivityCompat.shouldShowRequestPermissionRationale(
+                requireActivity(),
+                Manifest.permission.CALL_PHONE
+            )
+        ) {
+            activity?.let {
+                PermissionUtils.RationaleDialog.newInstance(
+                    CALL_PHONE_PERMISSION_REQUEST_CODE, true
+                ).show(it.supportFragmentManager, "dialogCallPhone")
+            }
+            return
+        }
+
+        // 3. Otherwise, request permission
+        ActivityCompat.requestPermissions(
+            requireActivity(),
+            arrayOf(
+                Manifest.permission.CALL_PHONE,
+            ),
+            LOCATION_PERMISSION_REQUEST_CODE
+        )
+    }
+
     @SuppressLint("MissingPermission")
     private fun enableMyLocation() {
 
@@ -210,7 +258,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
         permissions: Array<String>,
         grantResults: IntArray
     ) {
-        if (requestCode != LOCATION_PERMISSION_REQUEST_CODE) {
+        if (requestCode != LOCATION_PERMISSION_REQUEST_CODE || requestCode != CALL_PHONE_PERMISSION_REQUEST_CODE) {
             super.onRequestPermissionsResult(
                 requestCode,
                 permissions,
@@ -227,23 +275,33 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
                 permissions,
                 grantResults,
                 Manifest.permission.ACCESS_COARSE_LOCATION
+            )|| isPermissionGranted(
+                permissions,
+                grantResults,
+                Manifest.permission.CALL_PHONE
             )
         ) {
             // Enable the my location layer if the permission has been granted.
             enableMyLocation()
+            enableCallPhone()
         } else {
             // Permission was denied. Display an error message
             // Display the missing permission error dialog when the fragments resume.
-            permissionDenied = true
+            permissionLocationDenied = true
+            permissionCallPhoneDenied = true
         }
     }
 
     override fun onResume() {
         super.onResume()
-        if (permissionDenied) {
+        if (permissionLocationDenied) {
             // Permission was not granted, display error dialog.
             showMissingPermissionError()
-            permissionDenied = false
+            permissionLocationDenied = false
+        }
+        if(permissionCallPhoneDenied){
+            showMissingPermissionCallPhoneError()
+            permissionCallPhoneDenied = false
         }
     }
 
@@ -256,6 +314,12 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
         }
     }
 
+    private fun showMissingPermissionCallPhoneError() {
+        activity?.let {
+            newInstance(true).show(it.supportFragmentManager, "dialog1")
+        }
+    }
+
     companion object {
         /**
          * Request code for location permission request.
@@ -263,6 +327,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
          * @see .onRequestPermissionsResult
          */
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
+        private const val CALL_PHONE_PERMISSION_REQUEST_CODE = 2
     }
 
 }

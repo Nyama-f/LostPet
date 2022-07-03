@@ -1,6 +1,7 @@
 package com.example.lostpet.ui.viewmodels
 
 import android.util.Log
+import android.util.LogPrinter
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.lostpet.data.model.Pet
@@ -13,7 +14,8 @@ import javax.inject.Inject
 
 class MapViewModel @Inject constructor(
     private val getUsersUseCase: GetUsersUseCase,
-    private val getPetsUseCase: GetPetsUseCase
+    private val getPetsUseCase: GetPetsUseCase,
+    private val getUserUseCase: GetUserUseCase
 ): ViewModel(){
 
     private val _pets = MutableStateFlow<List<Pet>>(listOf())
@@ -22,6 +24,16 @@ class MapViewModel @Inject constructor(
 
     private val _users = MutableStateFlow<List<User>>(listOf())
     val users = _users.asStateFlow()
+
+    private val _user = MutableStateFlow(User(
+        "None",
+        "",
+        "",
+        "",
+        "",
+        mutableListOf()
+    ))
+    val user = _user.asStateFlow()
 
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         Log.d("Exception", throwable.toString())
@@ -47,6 +59,15 @@ class MapViewModel @Inject constructor(
                 .filterNotNull()
                 .collect{
                     _users.emit(it)
+                }
+        }
+    }
+
+    fun getUser(userId: Int){
+        viewModelScope.launch(exceptionHandler){
+            getUserUseCase.invoke(userId)
+                .collect{
+                    _user.emit(it)
                 }
         }
     }
