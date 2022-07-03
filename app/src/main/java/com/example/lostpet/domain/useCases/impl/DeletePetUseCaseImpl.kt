@@ -1,5 +1,6 @@
 package com.example.lostpet.domain.useCases.impl
 
+import android.util.Log
 import com.example.lostpet.data.model.Pet
 import com.example.lostpet.domain.repository.ApiRepository
 import com.example.lostpet.domain.useCases.DeletePetUseCase
@@ -15,6 +16,7 @@ class DeletePetUseCaseImpl @Inject constructor(
 
     override suspend fun invoke(userId: Int, petId: Int) {
         withContext(Dispatchers.IO){
+            Log.d("DelUser", "В DeletePetUseCaseImpl")
             apiRepository.deletePet(userId, petId)
         }
     }

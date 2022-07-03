@@ -37,6 +37,7 @@
     <string name="userNumber">Номер телефона</string>
     <string name="edit">Редактирование</string>
     <string name="logOutOfAccount">Выход из аккаунта</string>
+    <string name="deleteMark">Удалить метку</string>
     <!-- DetailFragment -->
     <string name="getInTouchAuthor">Связаться с автором</string>
     <string name="btnPhoneCall">btnPhoneCall</string>

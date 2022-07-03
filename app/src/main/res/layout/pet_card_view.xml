@@ -45,5 +45,14 @@
 
     </LinearLayout>
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnDelete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="105dp"
+        android:backgroundTint="@color/lightRef"
+        android:text="@string/deleteMark"
+        android:layout_gravity="bottom|center"/>
+
 
 </com.google.android.material.card.MaterialCardView>

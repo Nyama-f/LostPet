@@ -79,6 +79,10 @@ class AccountFragment : Fragment() {
                 FeedVerticalDividerItemDecoration(16, petAdapter.itemCount)
             )
         }
+        petAdapter.cardButtonDelClickListener = { petId ->
+            viewModel.deletePet(petId)
+            Log.d("DelUser", "В AccountFragment ${petId}")
+        }
         binding.btnDelete.setOnClickListener {
             viewModel.outOfAccount()
             Log.d("User", "${MAIN.prefs.getInt("currentUserId", 0)}")
