@@ -38,7 +38,10 @@
     <string name="edit">Редактирование</string>
     <string name="logOutOfAccount">Выход из аккаунта</string>
     <string name="deleteMark">Удалить метку</string>
+    <string name="editMark">Здесь должно было быть редактирование юзера. Можете позвонить разработчику и напомнить ему об этом.</string>
     <!-- DetailFragment -->
     <string name="getInTouchAuthor">Связаться с автором</string>
     <string name="btnPhoneCall">btnPhoneCall</string>
+    <string name="no">Пожалуй нет</string>
+    <string name="yes">Позвонить</string>
 </resources>

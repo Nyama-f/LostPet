@@ -31,6 +31,9 @@
             <action
                 android:id="@+id/action_accountFragment_to_detailMarkerFragment"
                 app:destination="@id/detailMarkerFragment" />
+            <action
+                android:id="@+id/action_accountFragment_to_jokeDialog"
+                app:destination="@id/jokeDialog" />
         </fragment>
         <fragment
             android:id="@+id/listOfMarksFragment"
@@ -55,5 +58,9 @@
             android:name="com.example.lostpet.ui.dialogfragments.DetailMarkerFragment"
             android:label="fragment_detail_marker"
             tools:layout="@layout/fragment_detail_marker" />
+    <dialog
+        android:id="@+id/jokeDialog"
+        android:name="com.example.lostpet.ui.dialogfragments.JokeDialog"
+        android:label="JokeDialog" />
 
 </navigation>
