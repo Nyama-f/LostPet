@@ -11,6 +11,7 @@ import androidx.fragment.app.DialogFragment
 import com.example.lostpet.R
 
 class JokeDialog : DialogFragment(), DialogInterface.OnClickListener {
+
     val LOG_TAG = "myLogs"
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val adb: AlertDialog.Builder = AlertDialog.Builder(activity)
@@ -31,7 +32,7 @@ class JokeDialog : DialogFragment(), DialogInterface.OnClickListener {
             }
             Dialog.BUTTON_NEGATIVE -> i = R.string.no
         }
-        if (i > 0) Log.d(LOG_TAG, "Dialog 2: " + resources.getString(i))
+        //if (i > 0) Log.d(LOG_TAG, "Dialog 2: " + resources.getString(i))
     }
 
     override fun onDismiss(dialog: DialogInterface) {

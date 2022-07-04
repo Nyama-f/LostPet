@@ -73,6 +73,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
         addMarker(map)
         lifecycleScope.launchWhenResumed {
             viewModel.pets.collect{
+                map.clear()
                 for(pet in viewModel.pets.value){
                     setMarker(map, pet)
                 }
