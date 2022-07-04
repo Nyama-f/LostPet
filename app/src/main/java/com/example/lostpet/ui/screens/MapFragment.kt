@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -26,7 +27,9 @@ import com.example.lostpet.utils.PermissionUtils
 import com.example.lostpet.utils.PermissionUtils.PermissionDeniedDialog.Companion.newInstance
 import com.example.lostpet.utils.PermissionUtils.isPermissionGranted
 import com.example.lostpet.utils.appComponent
-import com.google.android.gms.maps.*
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
@@ -39,8 +42,6 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
 
     private var _binding: FragmentMapsBinding? = null
     private val binding get() = checkNotNull(_binding) { "Binding is null" }
-
-    private var listMarkers = mutableListOf<Marker>()
 
 
     @Inject
@@ -97,8 +98,9 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
         enableCallPhone()
-        viewModel.getUsers()
-        viewModel.getPets()
+//        viewModel.getUsers()
+//        viewModel.getPets()
+        viewModel.getX()
 
         val fab = binding.fabAdd
         fab.setOnClickListener {
@@ -107,13 +109,12 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
         }
     // Установка меток
     private fun setMarker(mMap: GoogleMap, pet: Pet){
-        var marker = mMap.addMarker(
+        val marker = mMap.addMarker(
             MarkerOptions()
                 .title(pet.petType)
                 .position(LatLng(pet.petLatitude.toDouble(),pet.petLongitude.toDouble()))
         )
         marker?.tag = pet
-        //marker?.let { listMarkers.add(it) }
     }
 
     private fun slideBottomSheetDialogFragment (mMap: GoogleMap){
@@ -127,7 +128,6 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
                     viewModel.getUser(pet.petUserId)
                     viewModel.user.collect{
                         bundle.putString("userPhone", it.userPhone)
-                        Log.d("User", "${it.userPhone}")
                     }
                 }
                 if(bundle.getString("userPhone", "0").length < 11){

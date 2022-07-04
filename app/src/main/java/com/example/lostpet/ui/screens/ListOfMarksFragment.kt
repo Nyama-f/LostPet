@@ -6,8 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.lostpet.R
 import com.example.lostpet.databinding.FragmentAccountBinding
@@ -17,6 +20,8 @@ import com.example.lostpet.ui.adapters.decorators.FeedVerticalDividerItemDecorat
 import com.example.lostpet.ui.viewmodels.ListOfMarksViewModel
 import com.example.lostpet.ui.viewmodels.ViewModelFactory
 import com.example.lostpet.utils.appComponent
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -39,7 +44,7 @@ class ListOfMarksFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentListOfMarksBinding.inflate(inflater, container, false)
         val view = binding.root
         return view
@@ -47,23 +52,48 @@ class ListOfMarksFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getUsers()
-        viewModel.getPets()
-        lifecycleScope.launchWhenResumed {
-            viewModel.users.collect{
-                viewModel.pets.collect{
-                    commonPetAdapter.setList(it)
-                }
-            }
-        }
-
+        //viewModel.getUsers()
+        //viewModel.getPets()
+        viewModel.getX()
         with(binding){
             commonPetList.adapter = commonPetAdapter
             commonPetList.layoutManager = LinearLayoutManager(requireContext())
             commonPetList.addItemDecoration(
                 FeedVerticalDividerItemDecoration(16, commonPetAdapter.itemCount))
         }
-        commonPetAdapter.setList(viewModel.pets.value)
+        val progressBar = binding.progressBar
+        progressBar.isVisible = true
+//        lifecycleScope.launchWhenResumed {
+//            viewModel.users.collect{
+//                viewModel.pets.collect{
+//                    commonPetAdapter.setList(it)
+//                    progressBar.isVisible = false
+//                }
+//            }
+//        }
+//        lifecycleScope.launch {
+//            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED){
+//                launch {
+//                    viewModel.users.collect{}
+//                }
+//                launch {
+//                    viewModel.pets.collect{
+//                        commonPetAdapter.setList(it)
+//                        progressBar.isVisible = false
+//
+//                    }
+//                }
+//            }
+//        }
+        lifecycleScope.launch{
+            viewModel.pets.collect{
+                commonPetAdapter.setList(it)
+                delay(1900)
+                progressBar.isVisible = false
+            }
+        }
+
+        //commonPetAdapter.setList(viewModel.pets.value)
     }
 
 }
