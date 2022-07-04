@@ -25,6 +25,9 @@ class MapViewModel @Inject constructor(
     private val _users = MutableStateFlow<List<User>>(listOf())
     val users = _users.asStateFlow()
 
+    private val userT = mutableListOf<User>()
+
+
     private val _user = MutableStateFlow(User(
         "None",
         "",
@@ -40,10 +43,14 @@ class MapViewModel @Inject constructor(
     }
 
 
-    fun getPets(){
-        viewModelScope.launch(exceptionHandler) {
-            Log.d("Users", "${_users.value}")
-            for (user in _users.value){
+    fun getX(){
+        viewModelScope.launch(exceptionHandler){
+            getUsersUseCase.invoke()
+                .filterNotNull()
+                .collect{
+                    userT.addAll(it)
+                }
+            for (user in userT){
                 getPetsUseCase.invoke(userId = user.userId?.toInt() ?: 1)
                     .filterNotNull()
                     .collect{
@@ -53,15 +60,7 @@ class MapViewModel @Inject constructor(
         }
     }
 
-    fun getUsers(){
-        viewModelScope.launch(exceptionHandler) {
-            getUsersUseCase.invoke()
-                .filterNotNull()
-                .collect{
-                    _users.emit(it)
-                }
-        }
-    }
+
 
     fun getUser(userId: Int){
         viewModelScope.launch(exceptionHandler){

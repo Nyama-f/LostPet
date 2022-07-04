@@ -25,7 +25,7 @@ class ListOfMarksViewModel @Inject constructor(
     private val _users = MutableStateFlow<List<User>>(listOf())
     val users = _users.asStateFlow()
 
-    private val x = mutableListOf<User>()
+    private val userT = mutableListOf<User>()
 
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         Log.d("Exception", throwable.toString())
@@ -37,37 +37,15 @@ class ListOfMarksViewModel @Inject constructor(
             getUsersUseCase.invoke()
                 .filterNotNull()
                 .collect{
-                   x.addAll(it)
+                   userT.addAll(it)
                 }
-            for (user in x){
+            for (user in userT){
                 getPetsUseCase.invoke(userId = user.userId?.toInt() ?: 1)
                     .filterNotNull()
                     .collect{
                         _pets.emit(it)
                     }
             }
-        }
-    }
-
-    fun getPets(){
-        viewModelScope.launch(exceptionHandler) {
-            for (user in _users.value){
-                getPetsUseCase.invoke(userId = user.userId?.toInt() ?: 1)
-                    .filterNotNull()
-                    .collect{
-                        _pets.emit(it)
-                    }
-            }
-        }
-    }
-
-    fun getUsers(){
-        viewModelScope.launch(exceptionHandler) {
-            getUsersUseCase.invoke()
-                .filterNotNull()
-                .collect{
-                    _users.emit(it)
-                }
         }
     }
 

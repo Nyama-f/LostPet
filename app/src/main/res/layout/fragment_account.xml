@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:background="@color/backColor"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.screens.AccountFragment">
@@ -64,6 +65,7 @@
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progressBar"
         android:layout_gravity="center"
+        app:indicatorColor="@color/lightRef"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:indeterminate="true" />
