@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -60,11 +61,14 @@ class AccountFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val progressBar = binding.progressBar
+        progressBar.isVisible = true
         viewModel.getPets()
         viewModel.getUser()
         lifecycleScope.launchWhenResumed {
             viewModel.pets.collect{
                 petAdapter.setList(it)
+                progressBar.isVisible = false
             }
         }
         lifecycleScope.launchWhenResumed {

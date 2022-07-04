@@ -2,6 +2,8 @@ package com.example.lostpet.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lostpet.data.model.Pet
 import com.example.lostpet.databinding.CommonPetCardViewBinding
