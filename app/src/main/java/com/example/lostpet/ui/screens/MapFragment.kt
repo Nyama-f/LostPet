@@ -98,9 +98,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
         enableCallPhone()
-//        viewModel.getUsers()
-//        viewModel.getPets()
-        viewModel.getX()
+        viewModel.getUsersAndPets()
 
         val fab = binding.fabAdd
         fab.setOnClickListener {

@@ -70,6 +70,22 @@ class MapViewModel @Inject constructor(
                 }
         }
     }
+    fun getUsersAndPets() {
+        viewModelScope.launch(exceptionHandler) {
+            getUsersUseCase.invoke()
+                .collect {
+                    _users.emit(it)
+                }
+            for (user in _users.value) {
+                getPetsUseCase.invoke(userId = user.userId?.toInt() ?: 1)
+                    .filterNotNull()
+                    .collect {
+                        _pets.emit(it)
+                    }
+            }
+        }
+    }
+
 
 }
 

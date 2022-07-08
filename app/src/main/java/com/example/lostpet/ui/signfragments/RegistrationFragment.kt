@@ -47,7 +47,7 @@ class RegistrationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.btnRegistration.setOnClickListener { v -> v.isClickable = false }
         checkLoginIsNull()
-        checkdNameIsNull()
+        checkNameIsNull()
         checkPhoneIsNull()
         checkPasswordsEditTextInputEachOther()
         binding.btnRegistration.setOnClickListener {
@@ -60,10 +60,7 @@ class RegistrationFragment : Fragment() {
                 listOfMarks = mutableListOf()
             )
             viewModel.addUser(user = user)
-           // var users = viewModel.getUsers()
-           // Log.d("UserNyama1", "$users")
-            //TODO Сделать добавление аватара(можно по названию файла)
-            // Возможно стоит проверять строки на пустоту уже в конце, а не в валидаторе
+
             if(binding.innerEditTextLogin.text != null &&
                 binding.innerEditTextPhone.text != null &&
                 binding.innerEditTextPassword.text != null &&
@@ -95,7 +92,7 @@ class RegistrationFragment : Fragment() {
         })
     }
 
-    private fun checkdNameIsNull(){
+    private fun checkNameIsNull(){
         val innerName = binding.innerEditTextName
         val nameField = binding.editTextName
         innerName.addTextChangedListener(object : TextValidator(innerName){
