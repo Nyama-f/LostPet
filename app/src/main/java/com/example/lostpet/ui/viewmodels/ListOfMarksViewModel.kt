@@ -32,23 +32,25 @@ class ListOfMarksViewModel @Inject constructor(
     }
 
 
-    fun getX(){
-        viewModelScope.launch(exceptionHandler){
+    fun getUsersAndPets() {
+        viewModelScope.launch(exceptionHandler) {
             getUsersUseCase.invoke()
-                .filterNotNull()
-                .collect{
-                   userT.addAll(it)
+                .collect {
+                    _users.emit(it)
                 }
-            for (user in userT){
-                getPetsUseCase.invoke(userId = user.userId?.toInt() ?: 1)
-                    .filterNotNull()
+        }
+    }
+    fun getPets(){
+        viewModelScope.launch(exceptionHandler){
+            for(user in _users.value){
+                getPetsUseCase.invoke(user.userId?.toInt()?: 0)
                     .collect{
                         _pets.emit(it)
                     }
             }
         }
     }
-
-
 }
+
+
 

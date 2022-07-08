@@ -105,7 +105,7 @@ class AccountFragment : Fragment() {
         }
         binding.btnDelete.setOnClickListener {
             viewModel.outOfAccount()
-            Log.d("Nyama", "${MAIN.prefs.getInt("currentUserId", 0)}")
+            Log.d("Nyama", " Обнуление текущего ID ${MAIN.prefs.getInt("currentUserId", 0)}")
             activityNavController().navigateSafely(R.id.action_global_signFlowFragment)
         }
     }

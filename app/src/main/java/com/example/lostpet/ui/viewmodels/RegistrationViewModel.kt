@@ -32,9 +32,6 @@ class RegistrationViewModel @Inject constructor(
         viewModelScope.launch(exceptionHandler){
             addUserUseCase(user)
         }
-        val prevId = MAIN.prefs.getInt("currentUserId", 0)
-        MAIN.prefs.edit().putInt("currentUserId", prevId + 1)
-        Log.d("Nyama", "ID нового юзера ${MAIN.prefs.getInt("currentUserId", 0)}")
     }
 
     fun getUsers(){
