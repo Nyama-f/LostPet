@@ -2,18 +2,15 @@ package com.example.lostpet.ui.screens
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.lostpet.R
-import com.example.lostpet.databinding.FragmentAccountBinding
 import com.example.lostpet.databinding.FragmentListOfMarksBinding
 import com.example.lostpet.ui.adapters.CommonPetAdapter
 import com.example.lostpet.ui.adapters.decorators.FeedVerticalDividerItemDecoration
@@ -21,7 +18,6 @@ import com.example.lostpet.ui.viewmodels.ListOfMarksViewModel
 import com.example.lostpet.ui.viewmodels.ViewModelFactory
 import com.example.lostpet.utils.appComponent
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -52,9 +48,12 @@ class ListOfMarksFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //viewModel.getUsers()
-        //viewModel.getPets()
-        viewModel.getX()
+        viewModel.getUsersAndPets()
+        lifecycleScope.launchWhenResumed{
+            viewModel.users.collect{
+                viewModel.getPets()
+            }
+        }
         with(binding){
             commonPetList.adapter = commonPetAdapter
             commonPetList.layoutManager = LinearLayoutManager(requireContext())
@@ -63,29 +62,7 @@ class ListOfMarksFragment : Fragment() {
         }
         val progressBar = binding.progressBar
         progressBar.isVisible = true
-//        lifecycleScope.launchWhenResumed {
-//            viewModel.users.collect{
-//                viewModel.pets.collect{
-//                    commonPetAdapter.setList(it)
-//                    progressBar.isVisible = false
-//                }
-//            }
-//        }
-//        lifecycleScope.launch {
-//            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED){
-//                launch {
-//                    viewModel.users.collect{}
-//                }
-//                launch {
-//                    viewModel.pets.collect{
-//                        commonPetAdapter.setList(it)
-//                        progressBar.isVisible = false
-//
-//                    }
-//                }
-//            }
-//        }
-        lifecycleScope.launch{
+        lifecycleScope.launchWhenResumed{
             viewModel.pets.collect{
                 commonPetAdapter.setList(it)
                 delay(1900)

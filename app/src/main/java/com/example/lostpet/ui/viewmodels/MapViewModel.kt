@@ -25,7 +25,7 @@ class MapViewModel @Inject constructor(
     private val _users = MutableStateFlow<List<User>>(listOf())
     val users = _users.asStateFlow()
 
-    private val userT = mutableListOf<User>()
+   // private val userT = mutableListOf<User>()
 
 
     private val _user = MutableStateFlow(User(
@@ -43,20 +43,38 @@ class MapViewModel @Inject constructor(
     }
 
 
-    fun getX(){
+//    fun getX(){
+//        viewModelScope.launch(exceptionHandler){
+//            getUsersUseCase.invoke()
+//                .filterNotNull()
+//                .collect{
+//                    userT.addAll(it)
+//                }
+//            for (user in userT){
+//                getPetsUseCase.invoke(userId = user.userId?.toInt() ?: 1)
+//                    .filterNotNull()
+//                    .collect{
+//                        _pets.emit(it)
+//                    }
+//            }
+//        }
+//    }
+
+    fun getUsers(){
         viewModelScope.launch(exceptionHandler){
             getUsersUseCase.invoke()
-                .filterNotNull()
                 .collect{
-                    userT.addAll(it)
+                    _users.emit(it)
                 }
-            for (user in userT){
-                getPetsUseCase.invoke(userId = user.userId?.toInt() ?: 1)
-                    .filterNotNull()
-                    .collect{
-                        _pets.emit(it)
-                    }
-            }
+        }
+    }
+
+    fun getPets(userId: Int){
+        viewModelScope.launch(exceptionHandler){
+            getPetsUseCase.invoke(userId)
+                .collect{
+                    _pets.emit(it)
+                }
         }
     }
 
@@ -70,6 +88,22 @@ class MapViewModel @Inject constructor(
                 }
         }
     }
+
+    fun getUsersAndPets() {
+        viewModelScope.launch(exceptionHandler) {
+            getUsersUseCase.invoke()
+                .collect {
+                    _users.emit(it)
+                }
+            for (user in _users.value) {
+                getPetsUseCase.invoke(userId = user.userId?.toInt() ?: 1)
+                    .collect {
+                        _pets.emit(it)
+                    }
+            }
+        }
+    }
+
 
 }
 

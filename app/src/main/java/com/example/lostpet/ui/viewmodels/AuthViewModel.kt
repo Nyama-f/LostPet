@@ -39,28 +39,22 @@ class AuthViewModel @Inject constructor(
         }
     }
     fun checkUsers(login: String, password: String): Boolean{
-        //TODO: Проверить правильность введенного логина и пароля
         if(login.trim().isEmpty() && password.trim().isEmpty()){
             Toast.makeText(MAIN, "Не все поля заполнены", Toast.LENGTH_SHORT)
                 .show()
             return false
         }
         for(user in _users.value){
+            Log.d("Nyama", "UserLogin: ${user.userLogin} UserPassword: ${user.userPassword}")
             if(user.userLogin == login && user.userPassword == password){
                 MAIN.prefs.edit().putInt("currentUserId", user.userId?.toInt() ?: 0).commit()
-                Log.d("Shared", "ID entered user : " +
+                Log.d("Nyama", "ID entered user : " +
                         "${MAIN.prefs.getInt("currentUserId", 0)}")
                 return true
             }
-            Toast.makeText(MAIN, "Неверный логин или пароль", Toast.LENGTH_SHORT)
-                .show()
-            return false
         }
         Toast.makeText(MAIN, "Пользователь не зарегистрирован", Toast.LENGTH_SHORT)
             .show()
         return false
     }
 }
-
-//TODO Бросить ошибку при входе
-// запретить отправлять пустые значения

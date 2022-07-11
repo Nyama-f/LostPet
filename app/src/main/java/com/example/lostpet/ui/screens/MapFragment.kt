@@ -67,6 +67,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
 
     private val callback = OnMapReadyCallback { googleMap ->
         map = googleMap
+        map.clear()
         googleMap.uiSettings.isMapToolbarEnabled = false
         googleMap.setOnMyLocationButtonClickListener(this)
         googleMap.setOnMyLocationClickListener(this)
@@ -74,7 +75,6 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
         addMarker(map)
         lifecycleScope.launchWhenResumed {
             viewModel.pets.collect{
-                map.clear()
                 for(pet in viewModel.pets.value){
                     setMarker(map, pet)
                 }
@@ -97,10 +97,8 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
-        enableCallPhone()
-//        viewModel.getUsers()
-//        viewModel.getPets()
-        viewModel.getX()
+        viewModel.getUsersAndPets()
+
 
         val fab = binding.fabAdd
         fab.setOnClickListener {
@@ -123,7 +121,6 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
                 val pet: Pet = (marker.tag) as Pet
                 val bundle = Bundle()
                 bundle.putParcelable("pet", pet)
-                Log.d("User", "${pet.petUserId}")
                 lifecycleScope.launchWhenResumed {
                     viewModel.getUser(pet.petUserId)
                     viewModel.user.collect{
@@ -143,7 +140,6 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
     private fun addMarker(mMap: GoogleMap){
          mMap.setOnMapClickListener(object: GoogleMap.OnMapClickListener {
             override fun onMapClick(latLng: LatLng) {
-                Log.d("View", "$isCheckedFABOnMap")
                 if(isCheckedFABOnMap){
                     isCheckedFABOnMap = false
                     val bundle = Bundle()

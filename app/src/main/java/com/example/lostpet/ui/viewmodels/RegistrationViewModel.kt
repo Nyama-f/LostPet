@@ -21,8 +21,6 @@ class RegistrationViewModel @Inject constructor(
     private val getUsersUseCase: GetUsersUseCase
 ): ViewModel() {
 
-    private val sharedPreferences: PersistentStorage = PersistentStorage()
-
     private val _users = MutableStateFlow<List<User>>(listOf())
     val users = _users.asStateFlow()
 
@@ -33,15 +31,7 @@ class RegistrationViewModel @Inject constructor(
     fun addUser(user: User){
         viewModelScope.launch(exceptionHandler){
             addUserUseCase(user)
-           // Log.d("UserNyama1","${user}")
         }
-        with(sharedPreferences) {
-            initContext(cntx = MAIN)
-            addProperty(name = "currentUserId", value = (MainApplication.globalCurrentUserId + 1).toString())
-           // Log.d("UserNyama1","${getProperty("userId")}")
-        }
-
-        //var refs = MAIN.getSharedPreferences
     }
 
     fun getUsers(){

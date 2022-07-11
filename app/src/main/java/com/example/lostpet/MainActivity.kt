@@ -35,9 +35,9 @@ class MainActivity : AppCompatActivity() {
         MAIN = this
         if(prefs.getInt("currentUserId", -1) == -1) prefs.edit().putInt("currentUserId", 0).commit()
         _binding = ActivityMainBinding.inflate(layoutInflater)
-        val navGraph = navController.navInflater.inflate(R.navigation.nav_graph)
         setContentView(binding.root)
-        Log.d("Shared", "${prefs.getInt("currentUserId", -1)}")
+        val navGraph = navController.navInflater.inflate(R.navigation.nav_graph)
+        Log.d("Nyama", "Id при запуске приложения MainActivity ${MAIN.prefs.getInt("currentUserId", 0)}")
         when{
             MAIN.prefs.getInt("currentUserId", 0) == 0 -> {
                 navGraph.setStartDestination(R.id.signFlowFragment)
@@ -55,6 +55,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
+    }
 
+    override fun onDestroy() {
+        super.onDestroy()
     }
 }

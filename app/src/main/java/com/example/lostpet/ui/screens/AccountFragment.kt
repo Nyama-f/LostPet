@@ -11,10 +11,8 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.lostpet.R
 import com.example.lostpet.databinding.FragmentAccountBinding
@@ -107,7 +105,7 @@ class AccountFragment : Fragment() {
         }
         binding.btnDelete.setOnClickListener {
             viewModel.outOfAccount()
-            Log.d("User", "${MAIN.prefs.getInt("currentUserId", 0)}")
+            Log.d("Nyama", " Обнуление текущего ID ${MAIN.prefs.getInt("currentUserId", 0)}")
             activityNavController().navigateSafely(R.id.action_global_signFlowFragment)
         }
     }
