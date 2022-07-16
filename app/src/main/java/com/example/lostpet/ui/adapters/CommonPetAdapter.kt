@@ -6,17 +6,25 @@ import android.widget.ProgressBar
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lostpet.data.model.Pet
+import com.example.lostpet.data.model.User
 import com.example.lostpet.databinding.CommonPetCardViewBinding
 
 class CommonPetAdapter: RecyclerView.Adapter<CommonPetAdapter.CommonPetCardViewHolder>() {
 
     private val pets: MutableList<Pet> = mutableListOf()
+    private val users: MutableList<User> = mutableListOf()
 
     var cardImageClickListener: (() -> Unit)? = null
 
-    fun setList(list: List<Pet>) {
+    fun setList(listPet: List<Pet>) {
         pets.clear()
-        pets.addAll(list)
+        pets.addAll(listPet)
+        notifyDataSetChanged()
+    }
+
+    fun setListUsers(listUsers: List<User>){
+        users.clear()
+        users.addAll(listUsers)
         notifyDataSetChanged()
     }
 
@@ -44,10 +52,14 @@ class CommonPetAdapter: RecyclerView.Adapter<CommonPetAdapter.CommonPetCardViewH
         RecyclerView.ViewHolder(binding.root) {
 
         fun onBind(pet: Pet) {
+            //TODO Надо бы исправить данное безобразие, сообразив как добавить Pet имя Автора
+            for(user in users){
+                if (pet.petUserId.toString() == user.userId) binding.textAuthorPet.text = user.userName
+            }
             with(binding) {
                 textTypePet.text = pet.petType
                 textColorPet.text = pet.petColor
-                textAuthorPet.text = pet.petUserId.toString()
+                //textAuthorPet.text = pet.petUserId.toString()
                 containerCard.setOnClickListener { cardImageClickListener?.invoke() }
             }
         }

@@ -53,34 +53,22 @@ class ListOfMarksFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getUsers()
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.RESUMED){
-                viewModel.getPets()
-            }
-        }
-
-        val progressBar = binding.progressBar
-        progressBar.isVisible = true
-
 //        lifecycleScope.launch {
-//            repeatOnLifecycle(Lifecycle.State.RESUMED){
-//                var listPet = mutableListOf<Pet>()
-//                viewModel.pets.collect{
-//                    for(pet in it){
-//                        listPet.add(pet)
-//                    }
-//                    Log.d("Nyama", "Список животных ${listPet}")
-//                    commonPetAdapter.setList(listPet)
-//                    delay(1900)
-//                    progressBar.isVisible = false
-//                }
+//            repeatOnLifecycle(Lifecycle.State.STARTED){
+//                viewModel.getPets()
 //            }
 //        }
+
+        val progressBar = binding.progressBar
+        val rv = binding.commonPetList
+        rv.visibility = View.GONE
+        progressBar.isVisible = true
 
         lifecycleScope.launch{
             repeatOnLifecycle(Lifecycle.State.RESUMED){
                 viewModel.users.collect{
                     viewModel.getUsers()
+                    commonPetAdapter.setListUsers(it)
                     Log.d("Nyama", "Список юзеров ${viewModel.users.value}")
                 }
             }
@@ -89,11 +77,11 @@ class ListOfMarksFragment : Fragment() {
             repeatOnLifecycle(Lifecycle.State.RESUMED){
                 viewModel.pets.collect{
                     delay(1900)
-                    //TODO Сообразить как можно сделать лучше
+                    //TODO Сообразить как можно сделать лучше(сохранять в кэш)
                     viewModel.getPets()
-                    delay(1900)
                     Log.d("Nyama", "Список питомцев ${viewModel.pets.value}")
                     commonPetAdapter.setList(it)
+                    rv.visibility = View.VISIBLE
                     progressBar.isVisible = false
                 }
             }
