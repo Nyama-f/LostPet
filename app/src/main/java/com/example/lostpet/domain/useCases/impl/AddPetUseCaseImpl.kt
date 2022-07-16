@@ -17,6 +17,5 @@ class AddPetUseCaseImpl @Inject constructor(
         withContext(Dispatchers.IO){
             apiRepository.addPet(pet = pet, userId = userId)
         }
-       // apiRepository.addPet(pet = pet).flowOn(Dispatchers.IO)
     }
 }

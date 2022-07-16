@@ -45,11 +45,11 @@ class AuthViewModel @Inject constructor(
             return false
         }
         for(user in _users.value){
-            Log.d("Nyama", "UserLogin: ${user.userLogin} UserPassword: ${user.userPassword}")
+           // Log.d("Nyama", "UserLogin: ${user.userLogin} UserPassword: ${user.userPassword}")
             if(user.userLogin == login && user.userPassword == password){
                 MAIN.prefs.edit().putInt("currentUserId", user.userId?.toInt() ?: 0).commit()
-                Log.d("Nyama", "ID entered user : " +
-                        "${MAIN.prefs.getInt("currentUserId", 0)}")
+                //Log.d("Nyama", "ID entered user : " +
+                       // "${MAIN.prefs.getInt("currentUserId", 0)}")
                 return true
             }
         }

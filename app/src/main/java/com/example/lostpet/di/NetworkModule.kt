@@ -27,10 +27,9 @@ class NetworkModule {
     companion object{
         private const val BASE_URL = "https://62a226f1cc8c0118ef5de9a6.mockapi.io/"
         private var interceptor =
-                HttpLoggingInterceptor { message -> Log.d("User", message) }
+                HttpLoggingInterceptor { message -> Log.d("BD", message) }
                     .setLevel(HttpLoggingInterceptor.Level.BODY)
         private val client = OkHttpClient.Builder().addInterceptor(interceptor)
     }
-
 
 }

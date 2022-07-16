@@ -89,7 +89,6 @@ class AccountFragment : Fragment() {
         }
         petAdapter.cardButtonDelClickListener = { petId ->
             viewModel.deletePet(petId)
-            Log.d("DelUser", "В AccountFragment ${petId}")
         }
         binding.btnEdit.setOnClickListener {
 //            val contextView = binding.btnEdit
@@ -105,7 +104,7 @@ class AccountFragment : Fragment() {
         }
         binding.btnDelete.setOnClickListener {
             viewModel.outOfAccount()
-            Log.d("Nyama", " Обнуление текущего ID ${MAIN.prefs.getInt("currentUserId", 0)}")
+            //Log.d("Nyama", " Обнуление текущего ID ${MAIN.prefs.getInt("currentUserId", 0)}")
             activityNavController().navigateSafely(R.id.action_global_signFlowFragment)
         }
     }

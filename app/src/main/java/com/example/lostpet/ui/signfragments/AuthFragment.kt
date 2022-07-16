@@ -52,7 +52,7 @@ class AuthFragment : Fragment() {
         binding.btnEnter.setOnClickListener{
             val innerLogin = binding.innerEditTextLogin.text.toString()
             val innerPassword = binding.innerEditTextPassword.text.toString()
-            Log.d("Nyama", "${viewModel.users.value}")
+            //Log.d("Nyama", "${viewModel.users.value}")
             lifecycleScope.launchWhenResumed {
                 viewModel.users.collect{
                     if(viewModel.checkUsers(innerLogin, innerPassword)){

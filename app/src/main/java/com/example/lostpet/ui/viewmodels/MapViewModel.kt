@@ -43,43 +43,6 @@ class MapViewModel @Inject constructor(
     }
 
 
-//    fun getX(){
-//        viewModelScope.launch(exceptionHandler){
-//            getUsersUseCase.invoke()
-//                .filterNotNull()
-//                .collect{
-//                    userT.addAll(it)
-//                }
-//            for (user in userT){
-//                getPetsUseCase.invoke(userId = user.userId?.toInt() ?: 1)
-//                    .filterNotNull()
-//                    .collect{
-//                        _pets.emit(it)
-//                    }
-//            }
-//        }
-//    }
-
-    fun getUsers(){
-        viewModelScope.launch(exceptionHandler){
-            getUsersUseCase.invoke()
-                .collect{
-                    _users.emit(it)
-                }
-        }
-    }
-
-    fun getPets(userId: Int){
-        viewModelScope.launch(exceptionHandler){
-            getPetsUseCase.invoke(userId)
-                .collect{
-                    _pets.emit(it)
-                }
-        }
-    }
-
-
-
     fun getUser(userId: Int){
         viewModelScope.launch(exceptionHandler){
             getUserUseCase.invoke(userId)
@@ -103,7 +66,40 @@ class MapViewModel @Inject constructor(
             }
         }
     }
+//    fun getX(){
+//        viewModelScope.launch(exceptionHandler){
+//            getUsersUseCase.invoke()
+//                .filterNotNull()
+//                .collect{
+//                    userT.addAll(it)
+//                }
+//            for (user in userT){
+//                getPetsUseCase.invoke(userId = user.userId?.toInt() ?: 1)
+//                    .filterNotNull()
+//                    .collect{
+//                        _pets.emit(it)
+//                    }
+//            }
+//        }
+//    }
 
+//    fun getUsers(){
+//        viewModelScope.launch(exceptionHandler){
+//            getUsersUseCase.invoke()
+//                .collect{
+//                    _users.emit(it)
+//                }
+//        }
+//    }
+//
+//    fun getPets(userId: Int){
+//        viewModelScope.launch(exceptionHandler){
+//            getPetsUseCase.invoke(userId)
+//                .collect{
+//                    _pets.emit(it)
+//                }
+//        }
+//    }
 
 }
 

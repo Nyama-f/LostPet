@@ -3,12 +3,9 @@ package com.example.lostpet.ui.viewmodels
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.lostpet.MainApplication
 import com.example.lostpet.data.model.User
 import com.example.lostpet.domain.useCases.AddUserUseCase
 import com.example.lostpet.domain.useCases.GetUsersUseCase
-import com.example.lostpet.utils.Consts.MAIN
-import com.example.lostpet.utils.PersistentStorage
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -39,7 +36,6 @@ class RegistrationViewModel @Inject constructor(
             getUsersUseCase.invoke()
                 .filterNotNull()
                 .collect{
-                   // Log.d("UserNyama1", "$it")
                     _users.emit(it)
                 }
         }

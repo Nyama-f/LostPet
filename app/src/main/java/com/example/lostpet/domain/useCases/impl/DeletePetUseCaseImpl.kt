@@ -16,7 +16,6 @@ class DeletePetUseCaseImpl @Inject constructor(
 
     override suspend fun invoke(userId: Int, petId: Int) {
         withContext(Dispatchers.IO){
-            Log.d("DelUser", "В DeletePetUseCaseImpl")
             apiRepository.deletePet(userId, petId)
         }
     }
