@@ -127,9 +127,9 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
                         bundle.putString("userPhone", it.userPhone)
                     }
                 }
-                if(bundle.getString("userPhone", "0").length < 11){
-                    return true
-                }
+//                if(bundle.getString("userPhone", "0").length < 11){
+//                    return true
+//                }
                 findNavController().navigate(R.id.action_mapFragment_to_detailMarkerFragment, bundle)
                 return true
             }

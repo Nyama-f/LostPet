@@ -17,7 +17,5 @@ class AddUserUseCaseImpl @Inject constructor(
         withContext(Dispatchers.IO){
             apiRepository.addUser(user = user)
         }
-        //apiRepository.addUser(user = user).flowOn(Dispatchers.IO)
-        //Log.d("UserNyama1", "_")
     }
 }

@@ -32,7 +32,6 @@ class ApiRepositoryImpl @Inject constructor(
     }
 
     override suspend fun addUser(user: User){
-       // Log.d("UserNyama2", "_")
         apiService.addUser(user = user)
     }
 
@@ -52,7 +51,6 @@ class ApiRepositoryImpl @Inject constructor(
     }
 
     override suspend fun deletePet(userId: Int, petId: Int){
-        Log.d("DelUser", "В ApiRepositoryImpl")
         apiService.deletePet(userId = userId, petId = petId)
     }
 

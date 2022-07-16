@@ -22,17 +22,19 @@ class ListOfMarksViewModel @Inject constructor(
     private val _pets = MutableStateFlow<List<Pet>>(listOf())
     val pets = _pets.asStateFlow()
 
+    private val _petsNew = MutableStateFlow<List<Pet>>(listOf())
+    val petsNew = _petsNew.asStateFlow()
+
     private val _users = MutableStateFlow<List<User>>(listOf())
     val users = _users.asStateFlow()
 
-    private val userT = mutableListOf<User>()
 
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         Log.d("Exception", throwable.toString())
     }
 
 
-    fun getUsersAndPets() {
+    fun getUsers() {
         viewModelScope.launch(exceptionHandler) {
             getUsersUseCase.invoke()
                 .collect {
@@ -40,16 +42,32 @@ class ListOfMarksViewModel @Inject constructor(
                 }
         }
     }
-    fun getPets(){
-        viewModelScope.launch(exceptionHandler){
-            for(user in _users.value){
-                getPetsUseCase.invoke(user.userId?.toInt()?: 0)
-                    .collect{
-                        _pets.emit(it)
-                    }
+
+    suspend fun getPets(){
+        val listOfPets = mutableListOf<Pet>()
+        for(user in _users.value){
+            for (pet in user.listOfMarks){
+                listOfPets.add(pet)
             }
         }
+        _pets.emit(listOfPets)
+
     }
+
+//    fun getUsersAndPets() {
+//        viewModelScope.launch(exceptionHandler) {
+//            getUsersUseCase.invoke()
+//                .collect {
+//                    _users.emit(it)
+//                }
+//            for (user in _users.value) {
+//                getPetsUseCase.invoke(userId = user.userId?.toInt() ?: 1)
+//                    .collect {
+//                        _pets.emit(it)
+//                    }
+//            }
+//        }
+//    }
 }
 
 

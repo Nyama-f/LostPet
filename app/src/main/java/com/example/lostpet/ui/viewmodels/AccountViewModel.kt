@@ -62,7 +62,7 @@ class AccountViewModel @Inject constructor(
 
     fun deletePet(petId: Int){
         viewModelScope.launch(exceptionHandler){
-            Log.d("DelUser", "В AccountViewModel UserId ${Consts.MAIN.prefs.getInt("currentUserId", 0)} petId ${petId}")
+           // Log.d("DelUser", "В AccountViewModel UserId ${Consts.MAIN.prefs.getInt("currentUserId", 0)} petId ${petId}")
             deletePetUseCase.invoke(Consts.MAIN.prefs.getInt("currentUserId", 0), petId = petId)
 
         }
