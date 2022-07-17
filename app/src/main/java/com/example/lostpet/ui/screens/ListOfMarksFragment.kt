@@ -12,7 +12,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.lostpet.R
 import com.example.lostpet.data.model.Pet
 import com.example.lostpet.databinding.FragmentListOfMarksBinding
 import com.example.lostpet.ui.adapters.CommonPetAdapter
@@ -93,6 +95,13 @@ class ListOfMarksFragment : Fragment() {
             commonPetList.addItemDecoration(
                 FeedVerticalDividerItemDecoration(16, commonPetAdapter.itemCount)
             )
+            commonPetAdapter.cardImageClickListener = { latitude, longitude ->
+                val bundle = Bundle()
+                bundle.putString("longitude", longitude)
+                bundle.putString("latitude", latitude)
+                bundle.putBoolean("fromListOfMarks", true)
+                findNavController().navigate(R.id.action_listOfMarksFragment_to_mapFragment, bundle)
+            }
         }
 
     }

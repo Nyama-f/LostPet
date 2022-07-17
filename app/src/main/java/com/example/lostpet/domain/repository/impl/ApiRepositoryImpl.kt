@@ -1,7 +1,7 @@
 package com.example.lostpet.domain.repository.impl
 
-import android.util.Log
 import com.example.lostpet.data.api.ApiService
+import com.example.lostpet.data.model.EditData
 import com.example.lostpet.data.model.Pet
 import com.example.lostpet.data.model.User
 import com.example.lostpet.domain.repository.ApiRepository
@@ -26,8 +26,8 @@ class ApiRepositoryImpl @Inject constructor(
         apiService.deleteUser(userId = userId)
     }
 
-    override fun editUser(userId: Int): Flow<User> =  flow {
-        val api = apiService.editUser(userId = userId)
+    override fun editUser(userId: Int, editData: EditData): Flow<User> =  flow {
+        val api = apiService.editUser(userId = userId, editData = editData)
         emit(api)
     }
 

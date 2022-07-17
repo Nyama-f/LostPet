@@ -1,10 +1,11 @@
 package com.example.lostpet.data.api
 
+import com.example.lostpet.data.model.EditData
 import com.example.lostpet.data.model.Pet
 import com.example.lostpet.data.model.User
 import retrofit2.http.*
 
-interface ApiService {
+interface  ApiService {
 
     @GET("user")
     suspend fun getUsers(): List<User>
@@ -16,7 +17,7 @@ interface ApiService {
     suspend fun addUser(@Body user: User)
 
     @PUT("user/{id}")
-    suspend fun editUser(@Path("id") userId: Int): User
+    suspend fun editUser(@Path("id") userId: Int, @Body editData: EditData): User
 
     @DELETE("user/{id}")
     suspend fun deleteUser(@Path("id") userId: Int)

@@ -6,14 +6,12 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -27,6 +25,7 @@ import com.example.lostpet.utils.PermissionUtils
 import com.example.lostpet.utils.PermissionUtils.PermissionDeniedDialog.Companion.newInstance
 import com.example.lostpet.utils.PermissionUtils.isPermissionGranted
 import com.example.lostpet.utils.appComponent
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
@@ -113,6 +112,17 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
                 .position(LatLng(pet.petLatitude.toDouble(),pet.petLongitude.toDouble()))
         )
         marker?.tag = pet
+        val latitudeFromListOfMarks = arguments?.get("latitude")
+        val longitudeFromListOfMarks = arguments?.get("longitude")
+        if(latitudeFromListOfMarks == pet.petLatitude && longitudeFromListOfMarks == pet.petLongitude){
+            val currentLocation = LatLng(
+                latitudeFromListOfMarks.toString().toDouble(),
+                longitudeFromListOfMarks.toString().toDouble()
+            )
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15f))
+
+        }
+
     }
 
     private fun slideBottomSheetDialogFragment (mMap: GoogleMap){

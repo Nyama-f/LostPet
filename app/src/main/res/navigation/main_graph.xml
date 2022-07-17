@@ -40,6 +40,9 @@
             <action
                 android:id="@+id/action_listOfMarksFragment_to_detailMarkerFragment"
                 app:destination="@id/detailMarkerFragment" />
+            <action
+                android:id="@+id/action_listOfMarksFragment_to_mapFragment"
+                app:destination="@id/mapFragment" />
         </fragment>
         <fragment
             android:id="@+id/addMarkFragment"
