@@ -40,6 +40,11 @@ interface ViewModelModule {
     @ViewModelKey(AuthViewModel::class)
     fun bindAuthViewModel(viewModel: AuthViewModel): ViewModel
 
+    @Binds
+    @IntoMap
+    @ViewModelKey(EditUserViewModel::class)
+    fun bindEditUserViewModel(viewModel: EditUserViewModel): ViewModel
+
 //    @Binds
 //    fun viewModelFactory(viewModel: MapViewModel): ViewModelProvider.Factory
 

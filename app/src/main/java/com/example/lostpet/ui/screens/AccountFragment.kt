@@ -10,6 +10,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.lostpet.R
 import com.example.lostpet.databinding.FragmentAccountBinding
@@ -87,16 +88,8 @@ class AccountFragment : Fragment() {
             viewModel.deletePet(petId)
         }
         binding.btnEdit.setOnClickListener {
-//            val contextView = binding.btnEdit
-//            val snackBar =  Snackbar.make(contextView, R.string.editMark, Snackbar.LENGTH_LONG)
-//                .setAnchorView(binding.petList)
-//                .setAction("Позвонить"){
-//                    val intent = Intent(
-//                        Intent.ACTION_DIAL, Uri.parse("tel:" + "+79514462853"))
-//                    startActivity(intent)
-//                }
-//            snackBar.show()
-            jokeDialog.show(MAIN.supportFragmentManager, "jokeDialog")
+           findNavController().navigate(R.id.action_accountFragment_to_editUserFragment)
+            //jokeDialog.show(MAIN.supportFragmentManager, "jokeDialog")
         }
         binding.btnDelete.setOnClickListener {
             viewModel.outOfAccount()

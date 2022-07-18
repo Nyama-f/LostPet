@@ -9,4 +9,6 @@ data class EditData(
     val login: String,
     @SerializedName("phone")
     val mobilePhone: String
-)
+){
+
+}
