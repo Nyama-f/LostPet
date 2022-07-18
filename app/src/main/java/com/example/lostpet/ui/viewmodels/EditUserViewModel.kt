@@ -33,7 +33,7 @@ class EditUserViewModel @Inject constructor(
         Log.d("Exception", throwable.toString())
     }
 
-    fun editUser(login: String, name: String, mobileNumber: String){
+    fun editUser(login: String?, name: String?, mobileNumber: String?){
         val editData = EditData(name = name, login = login, mobilePhone = mobileNumber)
         viewModelScope.launch(exceptionHandler){
             editUserUseCase.invoke(userId = Consts.MAIN.prefs.getInt("currentUserId", 0), editData)

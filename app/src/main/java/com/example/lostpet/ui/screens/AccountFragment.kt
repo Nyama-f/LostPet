@@ -88,7 +88,11 @@ class AccountFragment : Fragment() {
             viewModel.deletePet(petId)
         }
         binding.btnEdit.setOnClickListener {
-           findNavController().navigate(R.id.action_accountFragment_to_editUserFragment)
+            val bundle = Bundle()
+            bundle.putString("userLogin", viewModel.user.value.userLogin)
+            bundle.putString("userName", viewModel.user.value.userName)
+            bundle.putString("userPhone", viewModel.user.value.userPhone)
+            findNavController().navigate(R.id.action_accountFragment_to_editUserFragment, bundle)
             //jokeDialog.show(MAIN.supportFragmentManager, "jokeDialog")
         }
         binding.btnDelete.setOnClickListener {

@@ -4,11 +4,9 @@ import com.google.gson.annotations.SerializedName
 
 data class EditData(
     @SerializedName("name")
-    val name: String,
+    val name: String? = null,
     @SerializedName("login")
-    val login: String,
+    val login: String? = null,
     @SerializedName("phone")
-    val mobilePhone: String
-){
-
-}
+    val mobilePhone: String? = null
+)

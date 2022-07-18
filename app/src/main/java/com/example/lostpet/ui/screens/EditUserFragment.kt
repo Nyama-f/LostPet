@@ -50,63 +50,37 @@ class EditUserFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        checkLoginIsNull()
-        checkNameIsNull()
-        checkPhoneIsNull()
+        checkPhoneIsRegex()
+        // Если поля пустые я выставляю свои значения из bundle
         binding.btnEditSave.setOnClickListener {
-            val name = binding.innerEditTextName.text.toString()
-            val number = binding.innerEditTextNumber.text.toString()
-            val login = binding.innerEditTextLogin.text.toString()
+            var name = binding.innerEditTextName.text.toString()
+            var number = binding.innerEditTextNumber.text.toString()
+            var login = binding.innerEditTextLogin.text.toString()
+            if(name.isEmpty()) name = arguments?.getString(
+                "userName",
+                ""
+            ).toString()
+            if(number.isEmpty()) number = arguments?.getString(
+                "userPhone",
+                ""
+            ).toString()
+            if(login.isEmpty()) login = arguments?.getString(
+                "userLogin",
+                ""
+            ).toString()
             viewModel.editUser(login = login, name = name, mobileNumber = number)
             findNavController().navigate(R.id.action_editUserFragment_to_accountFragment)
 
         }
     }
 
-    private fun checkNameIsNull(){
-        val innerName = binding.innerEditTextName
-        val nameField = binding.editTextName
-        innerName.addTextChangedListener(object : TextValidator(innerName){
-            override fun validate(textView: TextView?, text: String?) {
-                if(innerName.text.toString().trim().isEmpty()) {
-                    nameField.error = getString(R.string.fieldIsNull)
-                    nameField.isErrorEnabled = true
-                    binding.btnEditSave.isEnabled = false
-                }else {
-                    nameField.error = null
-                    nameField.isErrorEnabled = false
-                    binding.btnEditSave.isEnabled = true
-                }
-            }
-        })
-    }
-
-    private fun checkLoginIsNull(){
-        val innerLogin = binding.innerEditTextLogin
-        val loginField = binding.editTextLogin
-        innerLogin.addTextChangedListener(object : TextValidator(innerLogin){
-            override fun validate(textView: TextView?, text: String?) {
-                if(innerLogin.text.toString().trim().isEmpty()) {
-                    loginField.error = getString(R.string.fieldIsNull)
-                    loginField.isErrorEnabled = true
-                    binding.btnEditSave.isEnabled = false
-                }else {
-                    loginField.error = null
-                    loginField.isErrorEnabled = false
-                    binding.btnEditSave.isEnabled = true
-                }
-            }
-
-        })
-    }
-
-    private fun checkPhoneIsNull(){
+    private fun checkPhoneIsRegex(){
         val innerPhone = binding.innerEditTextNumber
         val phoneField = binding.editTextNumber
         val r1 = Regex("^(8|\\+7)(\\(?\\d{3}\\)?[\\- ]?)?[\\d\\- ]{10,11}\$")
         innerPhone.addTextChangedListener(object : TextValidator(innerPhone){
             override fun validate(textView: TextView?, text: String?) {
-                if(r1.matches(innerPhone.text.toString())){
+                if(r1.matches(innerPhone.text.toString()) || innerPhone.text.toString() == ""){
                     phoneField.error = null
                     phoneField.isErrorEnabled = false
                     binding.btnEditSave.isEnabled = true
