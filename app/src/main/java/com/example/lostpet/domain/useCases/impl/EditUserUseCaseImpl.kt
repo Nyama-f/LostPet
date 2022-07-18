@@ -1,5 +1,6 @@
 package com.example.lostpet.domain.useCases.impl
 
+import com.example.lostpet.data.model.EditData
 import com.example.lostpet.data.model.User
 import com.example.lostpet.domain.repository.ApiRepository
 import com.example.lostpet.domain.useCases.EditUserUseCase
@@ -13,7 +14,7 @@ class EditUserUseCaseImpl @Inject constructor(
 ): EditUserUseCase {
 
 
-    override fun invoke(userId: Int): Flow<User> {
-        return apiRepository.editUser(userId = userId).flowOn(Dispatchers.IO)
+    override fun invoke(userId: Int, editData: EditData): Flow<User> {
+        return apiRepository.editUser(userId = userId, editData = editData).flowOn(Dispatchers.IO)
     }
 }

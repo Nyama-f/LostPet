@@ -14,7 +14,7 @@ class CommonPetAdapter: RecyclerView.Adapter<CommonPetAdapter.CommonPetCardViewH
     private val pets: MutableList<Pet> = mutableListOf()
     private val users: MutableList<User> = mutableListOf()
 
-    var cardImageClickListener: (() -> Unit)? = null
+    var cardImageClickListener: ((latitude: String, longitude: String) -> Unit)? = null
 
     fun setList(listPet: List<Pet>) {
         pets.clear()
@@ -60,7 +60,7 @@ class CommonPetAdapter: RecyclerView.Adapter<CommonPetAdapter.CommonPetCardViewH
                 textTypePet.text = pet.petType
                 textColorPet.text = pet.petColor
                 //textAuthorPet.text = pet.petUserId.toString()
-                containerCard.setOnClickListener { cardImageClickListener?.invoke() }
+                containerCard.setOnClickListener { cardImageClickListener?.invoke(pet.petLatitude, pet.petLongitude) }
             }
         }
     }

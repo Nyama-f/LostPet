@@ -24,6 +24,8 @@ interface ApplicationComponent {
 
     fun inject(fragment: AuthFragment)
 
+    fun inject(fragment: EditUserFragment)
+
     @Component.Builder
     interface Builder {
 

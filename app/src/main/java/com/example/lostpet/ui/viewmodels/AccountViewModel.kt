@@ -3,6 +3,7 @@ package com.example.lostpet.ui.viewmodels
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.lostpet.data.model.EditData
 import com.example.lostpet.data.model.Pet
 import com.example.lostpet.data.model.User
 import com.example.lostpet.domain.useCases.*
@@ -68,9 +69,10 @@ class AccountViewModel @Inject constructor(
         }
     }
 
-    fun editUser(){
+    fun editUser(login: String, name: String, mobileNumber: String){
+        val editData = EditData(name = name, login = login, mobilePhone = mobileNumber)
         viewModelScope.launch(exceptionHandler){
-            editUserUseCase.invoke(userId = Consts.MAIN.prefs.getInt("currentUserId", 0))
+            editUserUseCase.invoke(userId = Consts.MAIN.prefs.getInt("currentUserId", 0), editData)
                 .collect{
                     _user.emit(it)
                 }

@@ -1,5 +1,6 @@
 package com.example.lostpet.domain.repository
 
+import com.example.lostpet.data.model.EditData
 import com.example.lostpet.data.model.Pet
 import com.example.lostpet.data.model.User
 import kotlinx.coroutines.flow.Flow
@@ -12,7 +13,7 @@ interface ApiRepository {
 
     suspend fun deleteUser(userId: Int)
 
-    fun editUser(userId: Int): Flow<User>
+    fun editUser(userId: Int, editData: EditData): Flow<User>
 
     suspend fun addUser(user: User)
 
