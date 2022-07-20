@@ -44,4 +44,8 @@
     <string name="btnPhoneCall">btnPhoneCall</string>
     <string name="no">Пожалуй нет</string>
     <string name="yes">Позвонить</string>
+    <!-- EditUserFragment -->
+    <string name="newLogin">Ваш новый логин</string>
+    <string name="newName">Новое имя</string>
+    <string name="newPhone">Новый номер телефона</string>
 </resources>
