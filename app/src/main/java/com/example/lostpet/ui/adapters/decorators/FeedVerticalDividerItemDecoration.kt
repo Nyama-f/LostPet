@@ -30,7 +30,7 @@ class FeedVerticalDividerItemDecoration(
         }
         // Для последнего элемента устанавливаем отдельный отступ
         if(parent.getChildAdapterPosition(view) == size - 1){
-            outRect.right = 20
+            outRect.bottom = 50
         }
     }
 }

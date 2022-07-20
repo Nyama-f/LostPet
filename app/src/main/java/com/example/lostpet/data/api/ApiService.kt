@@ -5,7 +5,7 @@ import com.example.lostpet.data.model.Pet
 import com.example.lostpet.data.model.User
 import retrofit2.http.*
 
-interface  ApiService {
+interface ApiService {
 
     @GET("user")
     suspend fun getUsers(): List<User>
